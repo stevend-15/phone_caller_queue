@@ -1,0 +1,40 @@
+.action {
+    margin: 10px
+}
+
+.arrow {
+    border: 5px solid #000;
+}
+
+button {
+    cursor: pointer;
+}
+
+.callerContainer {
+    display:flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    clear: both;
+    flex-wrap: wrap;
+}
+
+.container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.square {
+    border: 5px solid #000;
+    width: 10%;
+    height: 120px;
+    justify-content: left;
+    margin: 10px 10px 10px 10px;
+    
+    /*align-items: left;*/
+    /*border-radius: 50%;*/
+}
+
