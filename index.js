@@ -1,9 +1,20 @@
 /*import './index.css';*/
 
 function addNewCaller() {
+
     var callerContainer = document.getElementById("callerContainer")
     var square = document.createElement('div');
     square.className = 'square';
+
+    var callerNameField = document.createElement('input')
+    callerNameField.setAttribute("type", "text") 
+    callerNameField.style.width = "80%";
+    square.appendChild(callerNameField)
+
+    var callerLocField = document.createElement('input')
+    callerLocField.setAttribute("type", "text") 
+    callerLocField.style.width = "80%";
+    square.appendChild(callerLocField)
 
     /*
     square.style.width = '120px'
@@ -21,15 +32,3 @@ function addNewCaller() {
     callerContainer.appendChild(arrow)
     callerContainer.appendChild(square);
 }
-
-function addArrow() {
-
-    var callerContainer = document.getElementById("callerContainer");
-    var lastChild = callerContainer.lastElementChild;
-
-    var arrow = document.createElement('arrow')
-    arrow.className = 'arrow';
-    callerContainer.appendChild(arrow)
-
-}
-
