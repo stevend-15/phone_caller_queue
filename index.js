@@ -34,13 +34,16 @@ function addNewCaller() {
     square.appendChild(callerLocLabel)
     square.appendChild(callerLocField)
 
+    kebab = createKebab();
+    square.appendChild(kebab);
+
     /*
-    square.style.width = '120px'
-    square.style.height = '120px'
-    square.style.display = 'flex';
-    square.style.flexDirection = 'row';
-    square.style.justifyContent = 'start';
-    square.style.alignItems = 'center';
+    var kebab = document.querySelector(".kebab"),
+    dropdown = document.querySelector(".dropdown");
+
+    kebab.addEventListener("click", function() {
+        dropdown.classList.toggle("active");
+    });
     */
 
     var arrow = document.createElement('p')
@@ -49,4 +52,35 @@ function addNewCaller() {
 
     callerContainer.appendChild(arrow)
     callerContainer.appendChild(square);
+}
+
+function createKebab() {
+
+    var kebab = document.createElement('kebab')
+    var dropdown = document.createElement('ul')
+
+    nominalStat = document.createElement('li')
+    dropdown.appendChild(nominalStat)
+    missingStat = document.createElement('li')
+    dropdown.appendChild(missingStat)
+    droppedStat = document.createElement('li')
+    dropdown.appendChild(droppedStat)
+
+    kebab.appendChild(dropdown)
+
+    return kebab;
+
+    /*
+    var kebab = document.querySelector(".kebab"),
+    middle = document.querySelector(".middle"),
+    cross = document.querySelector(".cross"),
+    dropdown = document.querySelector(".dropdown");
+
+    kebab.addEventListener("click", function() {
+        middle.classList.toggle("active");
+        cross.classList.toggle("active");
+        dropdown.classList.toggle("active");
+    });
+    */
+
 }
