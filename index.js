@@ -8,12 +8,26 @@ function addNewCaller() {
 
     var callerNameField = document.createElement('input')
     callerNameField.setAttribute("type", "text") 
+    callerNameField.setAttribute("id", "callerName")
     callerNameField.style.width = "80%";
+
+    var callerNameLabel = document.createElement('label')
+    callerNameLabel.setAttribute("for", "callerName")
+    callerNameLabel.innerHTML="Caller Name"
+
+    square.append(callerNameLabel)
     square.appendChild(callerNameField)
 
     var callerLocField = document.createElement('input')
     callerLocField.setAttribute("type", "text") 
+    callerLocField.setAttribute("id", "callerLoc")
     callerLocField.style.width = "80%";
+
+    var callerLocLabel = document.createElement('label')
+    callerLocLabel.setAttribute("for", "callerLoc")
+    callerLocLabel.innerHTML="Caller Loc"
+
+    square.append(callerLocLabel)
     square.appendChild(callerLocField)
 
     /*

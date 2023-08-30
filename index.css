@@ -26,10 +26,16 @@ button {
     align-items: center;
 }
 
+.input {
+    display: block;
+    padding: 20px;
+    /*margin: 20px 20px 20px 20px;*/
+    margin-bottom: 50%;
+}
 
 .square {
     border: 5px solid #000;
-    width: 10%;
+    width: 30%;
     height: 120px;
     justify-content: left;
     margin: 10px 10px 10px 10px;
