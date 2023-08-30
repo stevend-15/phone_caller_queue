@@ -6,6 +6,8 @@ function addNewCaller() {
     var square = document.createElement('div');
     square.className = 'square';
 
+    var br = document.createElement('br')
+
     var callerNameField = document.createElement('input')
     callerNameField.setAttribute("type", "text") 
     callerNameField.setAttribute("id", "callerName")
@@ -15,8 +17,10 @@ function addNewCaller() {
     callerNameLabel.setAttribute("for", "callerName")
     callerNameLabel.innerHTML="Caller Name"
 
-    square.append(callerNameLabel)
+    square.appendChild(callerNameLabel)
     square.appendChild(callerNameField)
+    square.appendChild(br)
+    square.appendChild(br)
 
     var callerLocField = document.createElement('input')
     callerLocField.setAttribute("type", "text") 
@@ -27,7 +31,7 @@ function addNewCaller() {
     callerLocLabel.setAttribute("for", "callerLoc")
     callerLocLabel.innerHTML="Caller Loc"
 
-    square.append(callerLocLabel)
+    square.appendChild(callerLocLabel)
     square.appendChild(callerLocField)
 
     /*
