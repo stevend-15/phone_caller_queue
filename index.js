@@ -8,33 +8,10 @@ function addNewCaller() {
 
     var br = document.createElement('br')
 
-    var callerNameField = document.createElement('input')
-    callerNameField.setAttribute("type", "text") 
-    callerNameField.setAttribute("id", "callerName")
-    callerNameField.style.width = "80%";
+    inputBoxDiv = initInputBoxes(br)
+    square.appendChild(inputBoxDiv)
 
-    var callerNameLabel = document.createElement('label')
-    callerNameLabel.setAttribute("for", "callerName")
-    callerNameLabel.innerHTML="Caller Name"
-
-    square.appendChild(callerNameLabel)
-    square.appendChild(callerNameField)
-    square.appendChild(br)
-    square.appendChild(br)
-
-    var callerLocField = document.createElement('input')
-    callerLocField.setAttribute("type", "text") 
-    callerLocField.setAttribute("id", "callerLoc")
-    callerLocField.style.width = "80%";
-
-    var callerLocLabel = document.createElement('label')
-    callerLocLabel.setAttribute("for", "callerLoc")
-    callerLocLabel.innerHTML="Caller Loc"
-
-    square.appendChild(callerLocLabel)
-    square.appendChild(callerLocField)
-
-    kebab = createKebab();
+    kebab = initKebab();
     square.appendChild(kebab);
 
     /*
@@ -54,8 +31,11 @@ function addNewCaller() {
     callerContainer.appendChild(square);
 }
 
-function createKebab() {
+function initKebab() {
 
+    var kebabDiv = document.createElement('div')
+    kebabDiv.style.float = "right";
+    //kebabDiv.style.width = "20%";
     var kebab = document.createElement('kebab')
     var dropdown = document.createElement('ul')
 
@@ -68,7 +48,9 @@ function createKebab() {
 
     kebab.appendChild(dropdown)
 
-    return kebab;
+    kebabDiv.appendChild(kebab)
+
+    return kebabDiv;
 
     /*
     var kebab = document.querySelector(".kebab"),
@@ -82,5 +64,43 @@ function createKebab() {
         dropdown.classList.toggle("active");
     });
     */
+
+}
+
+
+
+function initInputBoxes(lineBr) {
+
+    var inputDiv = document.createElement('div')
+    inputDiv.style.float = "left";
+    inputDiv.style.width = "60%";
+
+    var callerNameField = document.createElement('input')
+    callerNameField.setAttribute("type", "text") 
+    callerNameField.setAttribute("id", "callerName")
+    callerNameField.style.width = "80%";
+
+    var callerNameLabel = document.createElement('label')
+    callerNameLabel.setAttribute("for", "callerName")
+    callerNameLabel.innerHTML="Caller Name"
+
+    inputDiv.appendChild(callerNameLabel)
+    inputDiv.appendChild(callerNameField)
+    inputDiv.appendChild(lineBr)
+    inputDiv.appendChild(lineBr)
+
+    var callerLocField = document.createElement('input')
+    callerLocField.setAttribute("type", "text") 
+    callerLocField.setAttribute("id", "callerLoc")
+    callerLocField.style.width = "80%";
+
+    var callerLocLabel = document.createElement('label')
+    callerLocLabel.setAttribute("for", "callerLoc")
+    callerLocLabel.innerHTML="Caller Loc"
+
+    inputDiv.appendChild(callerLocLabel)
+    inputDiv.appendChild(callerLocField)
+
+    return inputDiv;
 
 }

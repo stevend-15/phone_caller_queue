@@ -26,12 +26,26 @@ button {
     align-items: center;
 }
 
+.dropdown{
+    position: absolute;
+    right: 0;
+    top: 3em;
+
+
+    .li {
+        display: block;
+        width: 100%;
+        margin: 2px;
+    }
+}
+
 .input {
     display: block;
     padding: 20px;
     /*margin: 20px 20px 20px 20px;*/
     margin-bottom: 50%;
 }
+
 
 .square {
     border: 5px solid #000;
@@ -42,5 +56,13 @@ button {
     
     /*align-items: left;*/
     /*border-radius: 50%;*/
+    .kebab {
+        cursor: pointer;
+        float: right;
+        /*position: relative;*/
+        /*display: inline-block;*/
+        /*box-sizing: border-box;*/
+        /*bottom: 5px;*/
+    }
 }
 
