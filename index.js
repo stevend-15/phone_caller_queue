@@ -17,10 +17,14 @@ function addNewCaller() {
     var arrow = document.createElement('div')
     arrow.className = 'arrow';
     arrow.innerHTML="&#x2192";
-    //arrow.addEventListener("mouseover", arrowMouseOver(arrow))
+    arrow.addEventListener("mouseover", arrowMouseOver)
+    arrow.addEventListener("mouseout", arrowMouseOut)
 
     callerContainer.appendChild(arrow)
     callerContainer.appendChild(square);
+
+    var arrows = document.querySelectorAll('div.arrow')
+    console.log("There are " + arrows.length + " arrows on the page")
 }
 
 function initKebab() {
@@ -98,14 +102,27 @@ function initInputBoxes(lineBr) {
 }
 
 /* Arrow button listener functions */
-function arrowMouseOver(arr) {
+function arrowMouseOver() {
     var arr = document.querySelector(':hover')
-    var insertCallerButton = document.createElement('div')
-    insertCallerButton.className = "action";
+    var insertCallerDiv = document.createElement('div')
+    insertCallerDiv.className = "action";
+
+    var insertCallerButton = document.createElement('button')
     insertCallerButton.innerHTML = "Click to insert new caller";
-    //insertCallerButton.style.display = "block";
     insertCallerButton.onclick = "addNewCaller()"
     console.log("Are we hovering over an arrow? : " + arr)
 
+    insertCallerDiv.appendChild(insertCallerButton);
     arr.appendChild(insertCallerButton);
+}
+
+function arrowMouseOut() {
+
+    var arr = document.querySelector(':hover')
+    lastChild = arr.lastChild;
+    arr.removeChild(lastChild);
+
+    kids = arr.childNodes
+    console.log("There are " + kids.length + " child nodes from the hovered arrow")
+
 }
