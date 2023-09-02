@@ -2,12 +2,14 @@
     margin: 10px
 }
 
-.arrow {
-    border: 5px solid #000;
+div.arrow {
+    /*border: 5px solid #000;*/
+    font-size: xx-large;
 }
 
 button {
     cursor: pointer;
+    /*display: none;*/
 }
 
 .callerContainer {

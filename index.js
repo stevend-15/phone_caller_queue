@@ -14,18 +14,10 @@ function addNewCaller() {
     kebab = initKebab();
     square.appendChild(kebab);
 
-    /*
-    var kebab = document.querySelector(".kebab"),
-    dropdown = document.querySelector(".dropdown");
-
-    kebab.addEventListener("click", function() {
-        dropdown.classList.toggle("active");
-    });
-    */
-
-    var arrow = document.createElement('p')
+    var arrow = document.createElement('div')
+    arrow.className = 'arrow';
     arrow.innerHTML="&#x2192";
-    arrow.style.fontSize="xx-large";
+    //arrow.addEventListener("mouseover", arrowMouseOver(arrow))
 
     callerContainer.appendChild(arrow)
     callerContainer.appendChild(square);
@@ -103,4 +95,17 @@ function initInputBoxes(lineBr) {
 
     return inputDiv;
 
+}
+
+/* Arrow button listener functions */
+function arrowMouseOver(arr) {
+    var arr = document.querySelector(':hover')
+    var insertCallerButton = document.createElement('div')
+    insertCallerButton.className = "action";
+    insertCallerButton.innerHTML = "Click to insert new caller";
+    //insertCallerButton.style.display = "block";
+    insertCallerButton.onclick = "addNewCaller()"
+    console.log("Are we hovering over an arrow? : " + arr)
+
+    arr.appendChild(insertCallerButton);
 }
