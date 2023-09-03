@@ -3,23 +3,11 @@
 function addNewCaller() {
 
     var callerContainer = document.getElementById("callerContainer")
-    var square = document.createElement('div');
-    square.className = 'square';
-
-    var br = document.createElement('br')
-
-    inputBoxDiv = initInputBoxes(br)
-    square.appendChild(inputBoxDiv)
-
-    kebab = initKebab();
-    square.appendChild(kebab);
-
-    var arrContainer = initLink();
-    callerContainer.appendChild(arrContainer);
+    var arrowContainer = initLink();
+    var square = initSquare();
+    callerContainer.appendChild(arrowContainer);
     callerContainer.appendChild(square);
 
-    var arrows = document.querySelectorAll('div.arrow')
-    //console.log("There are " + arrows.length + " arrows on the page")
 }
 
 
@@ -36,18 +24,16 @@ function initLink() {
     arrow.innerHTML="&#x2192";
     linkContainer.appendChild(arrow)
 
-
     var insertCallerDiv = document.createElement('div')
     insertCallerDiv.className = "action";
 
     var insertCallerButton = document.createElement('button')
     insertCallerButton.innerHTML = "Insert new caller";
-    insertCallerButton.onclick = "addNewCaller()"
+    insertCallerButton.addEventListener("click", addNewCaller);
     insertCallerButton.style.opacity = 0;
 
     insertCallerDiv.appendChild(insertCallerButton);
     linkContainer.appendChild(insertCallerDiv);
-
 
     insertCallerDiv.addEventListener("mouseover", 
         (event) => {event.target.style.opacity = 1;}
@@ -58,6 +44,24 @@ function initLink() {
     );
 
     return linkContainer;
+
+}
+
+
+function initSquare() {
+
+    var square = document.createElement('div');
+    square.className = 'square';
+
+    var br = document.createElement('br')
+
+    inputBoxDiv = initInputBoxes(br)
+    square.appendChild(inputBoxDiv)
+
+    kebab = initKebab();
+    square.appendChild(kebab);
+
+    return square;
 
 }
 
