@@ -78,10 +78,14 @@ function initSquare() {
 function initKebab() {
 
     var kebabDiv = document.createElement('div')
-    kebabDiv.style.float = "right";
-    //kebabDiv.style.width = "20%";
-    var kebab = document.createElement('kebab')
+    kebabDiv.className = 'kebab';
+
+    /* 3 - dot icons*/
+    //kebabDiv
+
+    /* caller status options */
     var dropdown = document.createElement('ul')
+    dropdown.className = 'dropdown';
 
     nominalStat = document.createElement('li')
     dropdown.appendChild(nominalStat)
@@ -90,9 +94,9 @@ function initKebab() {
     droppedStat = document.createElement('li')
     dropdown.appendChild(droppedStat)
 
-    kebab.appendChild(dropdown)
+    kebabDiv.appendChild(dropdown)
 
-    kebabDiv.appendChild(kebab)
+    //kebabDiv.appendChild(kebab)
 
     return kebabDiv;
 
