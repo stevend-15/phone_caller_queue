@@ -14,17 +14,52 @@ function addNewCaller() {
     kebab = initKebab();
     square.appendChild(kebab);
 
-    var arrow = document.createElement('div')
-    arrow.className = 'arrow';
-    arrow.innerHTML="&#x2192";
-    arrow.addEventListener("mouseover", arrowMouseOver)
-    arrow.addEventListener("mouseout", arrowMouseOut)
-
-    callerContainer.appendChild(arrow)
+    var arrContainer = initArrow();
+    callerContainer.appendChild(arrContainer);
     callerContainer.appendChild(square);
 
     var arrows = document.querySelectorAll('div.arrow')
-    console.log("There are " + arrows.length + " arrows on the page")
+    //console.log("There are " + arrows.length + " arrows on the page")
+}
+
+
+function initArrow() {
+
+    var arrowContainer = document.createElement('div')
+    arrowContainer.className = 'container';
+
+    var arrow = document.createElement('div')
+    arrow.className = 'arrow';
+    arrow.innerHTML="&#x2192";
+    arrowContainer.appendChild(arrow)
+
+
+    var insertCallerDiv = document.createElement('div')
+    insertCallerDiv.className = "action";
+
+    var insertCallerButton = document.createElement('button')
+    insertCallerButton.innerHTML = "Insert new caller";
+    insertCallerButton.onclick = "addNewCaller()"
+    insertCallerButton.style.opacity = 0;
+
+    insertCallerDiv.appendChild(insertCallerButton);
+    arrowContainer.appendChild(insertCallerDiv);
+
+
+    insertCallerDiv.addEventListener("mouseover", 
+        (event) => {
+            event.target.style.opacity = 1;
+        }
+    );
+
+    insertCallerDiv.addEventListener("mouseout", 
+        (event) => {
+            event.target.style.opacity = 0;
+        }
+    );
+
+    return arrowContainer;
+
 }
 
 function initKebab() {
@@ -62,7 +97,6 @@ function initKebab() {
     */
 
 }
-
 
 
 function initInputBoxes(lineBr) {
@@ -103,26 +137,27 @@ function initInputBoxes(lineBr) {
 
 /* Arrow button listener functions */
 function arrowMouseOver() {
-    var arr = document.querySelector(':hover')
-    var insertCallerDiv = document.createElement('div')
-    insertCallerDiv.className = "action";
 
-    var insertCallerButton = document.createElement('button')
-    insertCallerButton.innerHTML = "Click to insert new caller";
-    insertCallerButton.onclick = "addNewCaller()"
-    console.log("Are we hovering over an arrow? : " + arr)
-
-    insertCallerDiv.appendChild(insertCallerButton);
-    arr.appendChild(insertCallerButton);
+    var arrContainer= document.querySelector('div.container:hover');
+    console.log("Hovering over arrContainerow? : " + arrContainer)
+    console.log("arrContainer has " + arrContainer.childNodes.length + " kids")
+    var button = arrContainer.lastChild.lastChild;
+    console.log("Have button? : " + button)
+    button.style.opacity = 1;
 }
 
 function arrowMouseOut() {
 
-    var arr = document.querySelector(':hover')
-    lastChild = arr.lastChild;
-    arr.removeChild(lastChild);
+    var i = 0;
+    //var event.target.style.opacity = 0;
+    /*
+    var arrContainer = document.querySelector('div.container:hover');
+    console.log("Hovering out arrContainerow? : " + arrContainer)
+    kids = arrContainer.childNodes
+    console.log(kids.length + " child nodes in arrow container")
 
-    kids = arr.childNodes
-    console.log("There are " + kids.length + " child nodes from the hovered arrow")
+    var button = arrContainer.lastChild.lastChild;
+    button.style.opacity = 0;
+    */
 
 }
