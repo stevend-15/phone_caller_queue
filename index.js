@@ -64,6 +64,7 @@ function initSquare() {
     square.className = 'square';
     //square.style.backgroundColor = "green";
 
+    //TODO: move this line to initInputBoxes method
     var br = document.createElement('br')
 
     inputBoxDiv = initInputBoxes(br)
@@ -124,6 +125,12 @@ function initInputBoxes(lineBr) {
     callerNameLabel.setAttribute("for", "callerName")
     callerNameLabel.innerHTML="Caller Name"
 
+    callerNameField.addEventListener("change", 
+        (event) => {
+            var callerName = event.target.value;
+            console.log("callerName: " + callerName)
+        })
+
     inputDiv.appendChild(callerNameLabel)
     inputDiv.appendChild(callerNameField)
     inputDiv.appendChild(lineBr)
@@ -137,10 +144,26 @@ function initInputBoxes(lineBr) {
     var callerLocLabel = document.createElement('label')
     callerLocLabel.setAttribute("for", "callerLoc")
     callerLocLabel.innerHTML="Caller Loc"
+    
+    callerLocField.addEventListener("change", 
+        (event) => {
+            var callerLoc = event.target.value;
+            console.log("callerLoc: " + callerLoc)
+        })
 
     inputDiv.appendChild(callerLocLabel)
     inputDiv.appendChild(callerLocField)
 
     return inputDiv;
+
+    class Caller {
+        constructor(name, loc, prev) {
+            //id = ??
+            this.name = name;
+            this.loc = loc;
+            this.prev = prev;
+            next = null;
+        }
+    }
 
 }
