@@ -62,56 +62,49 @@ function initSquare() {
 
     var square = document.createElement('div');
     square.className = 'square';
+    //square.style.backgroundColor = "green";
 
     var br = document.createElement('br')
 
     inputBoxDiv = initInputBoxes(br)
     square.appendChild(inputBoxDiv)
 
-    kebab = initKebab();
-    square.appendChild(kebab);
+    var statusButtons = initStatusButtons();
+    square.appendChild(statusButtons);
 
     return square;
 
 }
 
-function initKebab() {
+function initStatusButtons() {
 
-    var kebabDiv = document.createElement('div')
-    kebabDiv.className = 'kebab';
+    var statusDiv = document.createElement('div')
+    statusDiv.className = 'statuses';
 
-    /* 3 - dot icons*/
-    //kebabDiv
+    var nominalButton = document.createElement('button');
+    nominalButton.innerText = "Nominal";
+    var missingButton = document.createElement('button');
+    missingButton.innerText = "Missing";
 
-    /* caller status options */
-    var dropdown = document.createElement('ul')
-    dropdown.className = 'dropdown';
+    nominalButton.addEventListener("click", 
+        (event) => {
+            var parentSquare = event.target.parentElement.parentElement;
+            parentSquare.style.backgroundColor = "aquamarine";
+        }
+    )
 
-    nominalStat = document.createElement('li')
-    dropdown.appendChild(nominalStat)
-    missingStat = document.createElement('li')
-    dropdown.appendChild(missingStat)
-    droppedStat = document.createElement('li')
-    dropdown.appendChild(droppedStat)
 
-    kebabDiv.appendChild(dropdown)
+    missingButton.addEventListener("click", 
+        (event) => {
+            var parentSquare = event.target.parentElement.parentElement;
+            parentSquare.style.backgroundColor = "yellow";
+        }
+    )
 
-    //kebabDiv.appendChild(kebab)
+    statusDiv.appendChild(nominalButton);
+    statusDiv.appendChild(missingButton);
 
-    return kebabDiv;
-
-    /*
-    var kebab = document.querySelector(".kebab"),
-    middle = document.querySelector(".middle"),
-    cross = document.querySelector(".cross"),
-    dropdown = document.querySelector(".dropdown");
-
-    kebab.addEventListener("click", function() {
-        middle.classList.toggle("active");
-        cross.classList.toggle("active");
-        dropdown.classList.toggle("active");
-    });
-    */
+    return statusDiv;
 
 }
 

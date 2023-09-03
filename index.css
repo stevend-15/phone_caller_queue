@@ -43,7 +43,9 @@ button {
 }
 
 
-.kebab {
+div.statuses {
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
     float: right;
     /*width: 20%; */
@@ -67,6 +69,7 @@ button {
     height: 120px;
     justify-content: left;
     margin: 10px 10px 10px 10px;
+    background-color: aquamarine;
     
     /*align-items: left;*/
     /*border-radius: 50%;*/
