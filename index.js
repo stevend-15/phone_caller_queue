@@ -1,12 +1,17 @@
 /*import './index.css';*/
 
-function addNewCaller() {
+function appendCaller() {
 
     var callerContainer = document.getElementById("callerContainer")
     var arrowContainer = initLink();
     var square = initSquare();
     callerContainer.appendChild(arrowContainer);
     callerContainer.appendChild(square);
+
+}
+
+
+function insertCaller(event) {
 
 }
 
@@ -29,7 +34,21 @@ function initLink() {
 
     var insertCallerButton = document.createElement('button')
     insertCallerButton.innerHTML = "Insert new caller";
-    insertCallerButton.addEventListener("click", addNewCaller);
+    insertCallerButton.addEventListener("click", 
+        (event) => {
+
+            var linkContainer = event.target.parentElement.parentElement;
+            console.log("linkContainer.className? : " + linkContainer.className);
+            console.log("linkContainer.nextSibling.classname? : " + 
+                linkContainer.nextSibling.className);
+            var square = initSquare();
+            var link = initLink();
+            //linkContainer.insertBefore(square, linkContainer.nextSibling);
+            linkContainer.after(square);
+            square.after(link);
+
+        }
+    );
     insertCallerButton.style.opacity = 0;
 
     insertCallerDiv.appendChild(insertCallerButton);
