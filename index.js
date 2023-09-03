@@ -11,11 +11,6 @@ function appendCaller() {
 }
 
 
-function insertCaller(event) {
-
-}
-
-
 /*
     A link consists of an arrow and a show/hide button b/w callers
 */
@@ -38,12 +33,8 @@ function initLink() {
         (event) => {
 
             var linkContainer = event.target.parentElement.parentElement;
-            console.log("linkContainer.className? : " + linkContainer.className);
-            console.log("linkContainer.nextSibling.classname? : " + 
-                linkContainer.nextSibling.className);
             var square = initSquare();
             var link = initLink();
-            //linkContainer.insertBefore(square, linkContainer.nextSibling);
             linkContainer.after(square);
             square.after(link);
 
