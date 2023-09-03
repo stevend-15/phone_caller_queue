@@ -29,6 +29,18 @@ function initLink() {
 
     var insertCallerButton = document.createElement('button')
     insertCallerButton.innerHTML = "Insert new caller";
+    insertCallerButton.style.opacity = 0;
+    insertCallerDiv.appendChild(insertCallerButton);
+    linkContainer.appendChild(insertCallerDiv);
+
+    insertCallerDiv.addEventListener("mouseover", 
+        (event) => {event.target.style.opacity = 1;}
+    );
+
+    insertCallerDiv.addEventListener("mouseout", 
+        (event) => {event.target.style.opacity = 0;}
+    );
+
     insertCallerButton.addEventListener("click", 
         (event) => {
 
@@ -39,18 +51,6 @@ function initLink() {
             square.after(link);
 
         }
-    );
-    insertCallerButton.style.opacity = 0;
-
-    insertCallerDiv.appendChild(insertCallerButton);
-    linkContainer.appendChild(insertCallerDiv);
-
-    insertCallerDiv.addEventListener("mouseover", 
-        (event) => {event.target.style.opacity = 1;}
-    );
-
-    insertCallerDiv.addEventListener("mouseout", 
-        (event) => {event.target.style.opacity = 0;}
     );
 
     return linkContainer;
