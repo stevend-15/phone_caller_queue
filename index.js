@@ -1,11 +1,16 @@
-/*import './index.css';*/
-
+//TODO: make this method an instance method for caller
 function appendCaller() {
 
+    var callerList = document.querySelectorAll('div.square');
+    var id = "caller" + String(callerList.length);
+
+    var caller = new Caller(id, "No name", "No loc");
+    localStorage.setItem(id, caller)
+
     var callerContainer = document.getElementById("callerContainer")
-    var arrowContainer = initLink();
-    var square = initSquare();
-    callerContainer.appendChild(arrowContainer);
+    var linkContainer = initLink();
+    var square = initSquare(id);
+    callerContainer.appendChild(linkContainer);
     callerContainer.appendChild(square);
 
 }
@@ -41,6 +46,7 @@ function initLink() {
         (event) => {event.target.style.opacity = 0;}
     );
 
+    //TODO: make this method an instance method for caller
     insertCallerButton.addEventListener("click", 
         (event) => {
 
@@ -58,10 +64,11 @@ function initLink() {
 }
 
 
-function initSquare() {
+function initSquare(id) {
 
     var square = document.createElement('div');
     square.className = 'square';
+    square.id = id;
 
     inputBoxDiv = initInputBoxes()
     square.appendChild(inputBoxDiv)
@@ -89,14 +96,23 @@ function initStatusButtons() {
         (event) => {
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "aquamarine";
+
+            var callerObj = localStorage.getItem(parentSquare.id);
+            callerObj.status = "nominal";
+            localStorage.setItem(callerObj.id, callerObj);
+
+
         }
     )
-
 
     missingButton.addEventListener("click", 
         (event) => {
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "yellow";
+
+            var callerObj = localStorage.getItem(parentSquare.id);
+            callerObj.status = "missing";
+            localStorage.setItem(callerObj.id, callerObj);
         }
     )
 
@@ -104,6 +120,10 @@ function initStatusButtons() {
         (event) => {
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "red";
+
+            var callerObj = localStorage.getItem(parentSquare.id);
+            callerObj.status = "dropped";
+            localStorage.setItem(callerObj.id, callerObj);
         }
     )
 
@@ -135,8 +155,14 @@ function initInputBoxes() {
 
     callerNameField.addEventListener("change", 
         (event) => {
+
             var callerName = event.target.value;
             console.log("callerName: " + callerName)
+
+            var parentSquare = event.target.parentElement.parentElement;
+            var callerObj = localStorage.getItem(parentSquare.id);
+            callerObj.name = callerName;
+            localStorage.setItem(parentSquare.id, callerObj);
         })
 
     inputDiv.appendChild(callerNameLabel)
@@ -157,6 +183,11 @@ function initInputBoxes() {
         (event) => {
             var callerLoc = event.target.value;
             console.log("callerLoc: " + callerLoc)
+
+            var parentSquare = event.target.parentElement.parentElement;
+            var callerObj = localStorage.getItem(parentSquare.id);
+            callerObj.loc = callerLoc;
+            localStorage.setItem(parentSquare.id, callerObj);
         })
 
     inputDiv.appendChild(callerLocLabel)
@@ -168,8 +199,8 @@ function initInputBoxes() {
 
 
 class Caller {
-    constructor(name, loc, prev) {
-        //id = ??
+    constructor(id, name, loc, prev) {
+        this.id = id;
         this.name = name;
         this.loc = loc;
         var status = "nominal";
