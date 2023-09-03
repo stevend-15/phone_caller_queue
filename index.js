@@ -14,7 +14,7 @@ function addNewCaller() {
     kebab = initKebab();
     square.appendChild(kebab);
 
-    var arrContainer = initArrow();
+    var arrContainer = initLink();
     callerContainer.appendChild(arrContainer);
     callerContainer.appendChild(square);
 
@@ -23,15 +23,18 @@ function addNewCaller() {
 }
 
 
-function initArrow() {
+/*
+    A link consists of an arrow and a show/hide button b/w callers
+*/
+function initLink() {
 
-    var arrowContainer = document.createElement('div')
-    arrowContainer.className = 'container';
+    var linkContainer = document.createElement('div')
+    linkContainer.className = 'container';
 
     var arrow = document.createElement('div')
     arrow.className = 'arrow';
     arrow.innerHTML="&#x2192";
-    arrowContainer.appendChild(arrow)
+    linkContainer.appendChild(arrow)
 
 
     var insertCallerDiv = document.createElement('div')
@@ -43,22 +46,18 @@ function initArrow() {
     insertCallerButton.style.opacity = 0;
 
     insertCallerDiv.appendChild(insertCallerButton);
-    arrowContainer.appendChild(insertCallerDiv);
+    linkContainer.appendChild(insertCallerDiv);
 
 
     insertCallerDiv.addEventListener("mouseover", 
-        (event) => {
-            event.target.style.opacity = 1;
-        }
+        (event) => {event.target.style.opacity = 1;}
     );
 
     insertCallerDiv.addEventListener("mouseout", 
-        (event) => {
-            event.target.style.opacity = 0;
-        }
+        (event) => {event.target.style.opacity = 0;}
     );
 
-    return arrowContainer;
+    return linkContainer;
 
 }
 
@@ -132,32 +131,5 @@ function initInputBoxes(lineBr) {
     inputDiv.appendChild(callerLocField)
 
     return inputDiv;
-
-}
-
-/* Arrow button listener functions */
-function arrowMouseOver() {
-
-    var arrContainer= document.querySelector('div.container:hover');
-    console.log("Hovering over arrContainerow? : " + arrContainer)
-    console.log("arrContainer has " + arrContainer.childNodes.length + " kids")
-    var button = arrContainer.lastChild.lastChild;
-    console.log("Have button? : " + button)
-    button.style.opacity = 1;
-}
-
-function arrowMouseOut() {
-
-    var i = 0;
-    //var event.target.style.opacity = 0;
-    /*
-    var arrContainer = document.querySelector('div.container:hover');
-    console.log("Hovering out arrContainerow? : " + arrContainer)
-    kids = arrContainer.childNodes
-    console.log(kids.length + " child nodes in arrow container")
-
-    var button = arrContainer.lastChild.lastChild;
-    button.style.opacity = 0;
-    */
 
 }
