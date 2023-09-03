@@ -62,12 +62,8 @@ function initSquare() {
 
     var square = document.createElement('div');
     square.className = 'square';
-    //square.style.backgroundColor = "green";
 
-    //TODO: move this line to initInputBoxes method
-    var br = document.createElement('br')
-
-    inputBoxDiv = initInputBoxes(br)
+    inputBoxDiv = initInputBoxes()
     square.appendChild(inputBoxDiv)
 
     var statusButtons = initStatusButtons();
@@ -86,6 +82,8 @@ function initStatusButtons() {
     nominalButton.innerText = "Nominal";
     var missingButton = document.createElement('button');
     missingButton.innerText = "Missing";
+    var droppedButton = document.createElement('button');
+    droppedButton.innerText = "Dropped";
 
     nominalButton.addEventListener("click", 
         (event) => {
@@ -102,19 +100,29 @@ function initStatusButtons() {
         }
     )
 
+    droppedButton.addEventListener("click", 
+        (event) => {
+            var parentSquare = event.target.parentElement.parentElement;
+            parentSquare.style.backgroundColor = "red";
+        }
+    )
+
     statusDiv.appendChild(nominalButton);
     statusDiv.appendChild(missingButton);
+    statusDiv.appendChild(droppedButton);
 
     return statusDiv;
 
 }
 
 
-function initInputBoxes(lineBr) {
+function initInputBoxes() {
+
+    var lineBr = document.createElement('br')
 
     var inputDiv = document.createElement('div')
     inputDiv.style.float = "left";
-    inputDiv.style.width = "60%";
+    inputDiv.style.width = "50%";
 
     var callerNameField = document.createElement('input')
     callerNameField.setAttribute("type", "text") 
@@ -156,14 +164,16 @@ function initInputBoxes(lineBr) {
 
     return inputDiv;
 
-    class Caller {
-        constructor(name, loc, prev) {
-            //id = ??
-            this.name = name;
-            this.loc = loc;
-            this.prev = prev;
-            next = null;
-        }
-    }
+}
 
+
+class Caller {
+    constructor(name, loc, prev) {
+        //id = ??
+        this.name = name;
+        this.loc = loc;
+        var status = "nominal";
+        this.prev = prev;
+        var next = null;
+    }
 }
