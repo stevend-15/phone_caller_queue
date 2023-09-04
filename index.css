@@ -11,6 +11,7 @@ div.arrow {
 button {
     cursor: pointer;
     /*display: none;*/
+    font-size: x-small;
 }
 
 .callerContainer {
