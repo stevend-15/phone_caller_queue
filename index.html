@@ -24,6 +24,9 @@
             </div>
 
             <!--TODO: create a clear all data button-->
+            <!--TODO: add a timer button-->
+            <!--TODO: add a total callers feature-->
+            <!--TODO: add a export data feature-->
             <!--TODO: add functionality such that page refresh
             doesn't wipe everything-->
         </div>
@@ -32,6 +35,17 @@
             <button onclick="localStorage.clear()"> Click to clear 
                 localStorage
             </button>
+        </div>
+
+        <div class="container" id="timer" style="flex-direction: row;">
+            <form>
+                <label for="timeQuantity">Enter desired time: </label>
+                <input type="text" id="timeQuantity" name="timeQuantity"> 
+            </form>
+            <button onclick="resetTimer()">Reset</button>
+            <button onclic="startTimer()">Start</button>
+
+
         </div>
     </body>
 </html>
