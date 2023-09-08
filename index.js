@@ -212,6 +212,8 @@ function initInputBoxes() {
 
 class Caller {
     constructor(id, name, loc, prev) {
+
+
         this.id = id;
         this.name = name;
         this.loc = loc;
@@ -219,4 +221,16 @@ class Caller {
         this.prev = prev;
         var next = null;
     }
+}
+
+
+function saveCallers() {
+
+    //capture current callerContainer DOM
+    var callerContainer = document.getElementById("callerContainer");
+    return callerContainer;
+    
+
+
+
 }

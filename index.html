@@ -18,25 +18,50 @@
 
         <h1 style="text-align:center;">Callers</h1>
 
-        <div class="callerContainer" id="callerContainer">
-            <div class="square" id="hostSquare">
-                <p style="text-align:center;">Host</p>
-            </div>
+        <script>
 
-            <!--TODO: create a clear all data button-->
-            <!--TODO: add a timer button-->
-            <!--TODO: add a total callers feature-->
-            <!--TODO: add a export data feature-->
-            <!--TODO: add functionality such that page refresh
-            doesn't wipe everything-->
-        </div>
+            var cachedContainer = localStorage["callerContainer"];
 
+            if (cachedContainer) {
+                document.appendChild(cachedContainer);
+            } else {
+
+                var docBody = document.getElementsByTagName('body').item(0);
+                console.log("docBody: " + docBody);
+
+                var defaultContainer = document.createElement('div');
+                defaultContainer.className = 'callerContainer';
+                defaultContainer.id = 'callerContainer';
+
+                var hostSquare = document.createElement('div');
+                hostSquare.className = 'square';
+                hostSquare.id = 'hostSquare';
+
+                var hostSquareTxt = document.createElement('p');
+                hostSquareTxt.style.textAlign = 'center';
+                hostSquareTxt.innerText = 'Host';
+
+                hostSquare.appendChild(hostSquareTxt);
+                defaultContainer.appendChild(hostSquare);
+
+                docBody.appendChild(defaultContainer);
+            }
+        </script>
+
+            
+        <!--TODO: add a total callers feature-->
+        <!--TODO: add a export data feature-->
+        <!--TODO: add functionality such that page refresh
+        doesn't wipe everything-->
+
+        <!--TODO: create a clear all data button-->
         <div class="action" id="clearDataButton">
             <button onclick="localStorage.clear()"> Click to clear 
                 localStorage
             </button>
         </div>
 
+        <!--TODO: add a timer button-->
         <div class="container" id="timer" style="flex-direction: row;">
             <form>
                 <label for="timeQuantity">Enter desired time: </label>
