@@ -12,6 +12,7 @@ function appendCaller() {
     var square = initSquare(id);
     callerContainer.appendChild(linkContainer);
     callerContainer.appendChild(square);
+    localStorage.setItem("callerContainer", callerContainer);
 
 }
 
@@ -93,6 +94,8 @@ function initStatusButtons() {
     droppedButton.innerText = "Dropped";
     var justListeningButton = document.createElement('button');
     justListeningButton.innerHTML = "Just Listening";
+    var currentSpeakerButton = document.createElement('button');
+    currentSpeakerButton.innerHTML = "Current Speaker";
 
     nominalButton.addEventListener("click", 
         (event) => {
@@ -138,10 +141,22 @@ function initStatusButtons() {
         }
     )
 
+    currentSpeakerButton.addEventListener("click", 
+        (event) => {
+            var parentSquare = event.target.parentElement.parentElement;
+            parentSquare.style.backgroundColor = "light purple";
+
+            var callerObj = localStorage.getItem(parentSquare.id);
+            callerObj.status = "currentSpeaker";
+            localStorage.setItem(callerObj.id, callerObj);
+        }
+    )
+
     statusDiv.appendChild(nominalButton);
     statusDiv.appendChild(missingButton);
     statusDiv.appendChild(droppedButton);
     statusDiv.appendChild(justListeningButton);
+    statusDiv.appendChild(currentSpeakerButton);
 
     return statusDiv;
 
@@ -223,11 +238,21 @@ class Caller {
 }
 
 
+function clearData() {
+    localStorage.clear();
+    var callerContainer = document.getElementById("callerContainer");
+    callerContainer.remove();
+    window.location.reload();
+}
 
 window.addEventListener("beforeunload", function() {
 
-    var callerContainer = document.getElementById("callerContainer").outerHTML;
-    localStorage.setItem("callerContainer", callerContainer);
-
+    var callerContainer = this.localStorage.getItem("callerContainer");
+    console.log("callerContainer: " + callerContainer);
+    console.log("typeof(callerContainer): " + typeof(callerContainer));
+    if (callerContainer != null) {
+        var callerContainer = document.getElementById("callerContainer").outerHTML;
+        localStorage.setItem("callerContainer", callerContainer);
     }
+}
 )
