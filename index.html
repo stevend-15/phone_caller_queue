@@ -21,13 +21,16 @@
         <script>
 
             var cachedContainer = localStorage["callerContainer"];
+            var docBody = document.getElementsByTagName('body').item(0);
+            if (cachedContainer != 'null' && cachedContainer !== undefined)  {
 
-            if (cachedContainer) {
-                document.appendChild(cachedContainer);
+                var range = document.createRange();
+                range.selectNodeContents(docBody);
+                var frag = range.createContextualFragment(cachedContainer);
+                docBody.appendChild(frag);
+
             } else {
 
-                var docBody = document.getElementsByTagName('body').item(0);
-                console.log("docBody: " + docBody);
 
                 var defaultContainer = document.createElement('div');
                 defaultContainer.className = 'callerContainer';
@@ -50,18 +53,20 @@
 
             
         <!--TODO: add a total callers feature-->
+        <!--TODO: add a hover feature when hovering over squares or button that changes to current speaker-->
+        <!--TODO: reduce size of caller name/loc input fields-->
+        <!--TODO: move caller append button to last square-->
+        <!--TODO: make the states text box a drop down???-->
         <!--TODO: add a export data feature-->
-        <!--TODO: add functionality such that page refresh
-        doesn't wipe everything-->
 
-        <!--TODO: create a clear all data button-->
+        <!--TODO: style up this button and make a confirmation alert-->
         <div class="action" id="clearDataButton">
             <button onclick="localStorage.clear()"> Click to clear 
                 localStorage
             </button>
         </div>
 
-        <!--TODO: add a timer button-->
+        <!--TODO: make timer button move with vertical page scroll-->
         <div class="container" id="timer" style="flex-direction: row;">
             <form>
                 <label for="timeQuantity">Enter desired time: </label>
