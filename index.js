@@ -144,7 +144,7 @@ function initStatusButtons() {
     currentSpeakerButton.addEventListener("click", 
         (event) => {
             var parentSquare = event.target.parentElement.parentElement;
-            parentSquare.style.backgroundColor = "light purple";
+            parentSquare.style.backgroundColor = "purple";
 
             var callerObj = localStorage.getItem(parentSquare.id);
             callerObj.status = "currentSpeaker";

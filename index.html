@@ -53,7 +53,6 @@
 
             
         <!--TODO: add a total callers feature-->
-        <!--TODO: add a hover feature when hovering over squares or button that changes to current speaker-->
         <!--TODO: reduce size of caller name/loc input fields-->
         <!--TODO: move caller append button to last square-->
         <!--TODO: make the states text box a drop down???-->
@@ -69,8 +68,10 @@
         <!--TODO: make timer button move with vertical page scroll-->
         <div class="container" id="timer" style="flex-direction: row;">
             <form>
-                <label for="timeQuantity">Enter desired time: </label>
-                <input type="text" id="timeQuantity" name="timeQuantity"> 
+                <label for="timeQuantity"></label>
+                <input type="text" id="timeQuantity" name="timeQuantity"
+                placeholder="Enter time in minutes"> 
+
             </form>
             <button onclick="resetTimer()">Reset</button>
             <button onclic="startTimer()">Start</button>
