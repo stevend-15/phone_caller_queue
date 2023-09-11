@@ -14,6 +14,15 @@ function appendCaller() {
     callerContainer.appendChild(square);
     localStorage.setItem("callerContainer", callerContainer);
 
+
+    //update num callers display
+    var callerHead = document.getElementById("callerHead");
+    if (callerHead) {
+        var numCallers = getNumCallers();
+        callerHead.innerHTML  = "Callers(" + numCallers + ")"; 
+    }
+
+
 }
 
 
@@ -256,3 +265,17 @@ window.addEventListener("beforeunload", function() {
     }
 }
 )
+
+
+function getNumCallers() {
+
+    return document.querySelectorAll('div.square').length;
+
+}
+
+
+var callerHead = document.getElementById("callerHead");
+if (callerHead) {
+    var numCallers = getNumCallers();
+    callerHead.innerHTML  = "Callers(" + numCallers + ")"; 
+}
