@@ -18,49 +18,12 @@
 
         <h1 id="callerHead" style="text-align:center;">Callers</h1>
 
-        <script>
-
-            var cachedContainer = localStorage["callerContainer"];
-            var docBody = document.getElementsByTagName('body').item(0);
-            if (cachedContainer != 'null' && cachedContainer !== undefined)  {
-
-                var range = document.createRange();
-                range.selectNodeContents(docBody);
-                var frag = range.createContextualFragment(cachedContainer);
-                docBody.appendChild(frag);
-
-            } else {
-
-
-                var defaultContainer = document.createElement('div');
-                defaultContainer.className = 'callerContainer';
-                defaultContainer.id = 'callerContainer';
-
-                var hostSquare = document.createElement('div');
-                hostSquare.className = 'square';
-                hostSquare.id = 'hostSquare';
-
-                var hostSquareTxt = document.createElement('p');
-                hostSquareTxt.style.textAlign = 'center';
-                hostSquareTxt.innerText = 'Host';
-
-                hostSquare.appendChild(hostSquareTxt);
-                defaultContainer.appendChild(hostSquare);
-
-                var plusButton = document.createElement('div');
-                plusButton.classList.add(...['plus', 'radius']);
-                defaultContainer.appendChild(plusButton);
-
-
-                docBody.appendChild(defaultContainer);
-            }
-        </script>
-
-            
         <!--TODO: reduce size of caller name/loc input fields-->
         <!--TODO: move caller append button to last square-->
         <!--TODO: make the states text box a drop down???-->
         <!--TODO: add a export data feature-->
+
+        <script src="./createCallerContainer.js" charset="utf-8"></script>
 
         <!--TODO: make a confirmation alert-->
         <div class="action" id="clearDataButton">
