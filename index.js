@@ -8,16 +8,12 @@
 //TODO: make this method an instance method for caller
 function appendCaller(target) {
 
-    console.log("target from clicked button: " + target);
-    console.log("typeof(target) from clicked button: " + typeof(target));
     var id = "caller" + String(getNumCallers());
 
     var caller = new Caller(id, "No name", "No loc");
     localStorage.setItem(id, caller)
 
     var callerContainer = document.getElementById("callerContainer");
-    console.log("typeof(callerContainer): " + typeof(callerContainer));
-    //var clickedPlusButton = callerContainer.lastChild;
     var linkContainer = initLink();
     var square = initSquare(id);
     var plusButton = initPlusButton();
