@@ -47,12 +47,16 @@
                 hostSquare.appendChild(hostSquareTxt);
                 defaultContainer.appendChild(hostSquare);
 
+                var plusButton = document.createElement('div');
+                plusButton.classList.add(...['plus', 'radius']);
+                defaultContainer.appendChild(plusButton);
+
+
                 docBody.appendChild(defaultContainer);
             }
         </script>
 
             
-        <!--TODO: add a total callers feature-->
         <!--TODO: reduce size of caller name/loc input fields-->
         <!--TODO: move caller append button to last square-->
         <!--TODO: make the states text box a drop down???-->

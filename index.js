@@ -1,3 +1,10 @@
+/*
+    TODO: make a whole website out of this project. 
+    Make a leaderboard, streak counter, etc. for these phone call 
+    participants
+*/
+
+
 //TODO: make this method an instance method for caller
 function appendCaller() {
 
@@ -16,12 +23,7 @@ function appendCaller() {
 
 
     //update num callers display
-    var callerHead = document.getElementById("callerHead");
-    if (callerHead) {
-        var numCallers = getNumCallers();
-        callerHead.innerHTML  = "Callers(" + numCallers + ")"; 
-    }
-
+    updateNumCallers();
 
 }
 
@@ -274,8 +276,22 @@ function getNumCallers() {
 }
 
 
-var callerHead = document.getElementById("callerHead");
-if (callerHead) {
-    var numCallers = getNumCallers();
-    callerHead.innerHTML  = "Callers(" + numCallers + ")"; 
+function updateNumCallers() {
+
+    var callerHead = document.getElementById("callerHead");
+    if (callerHead) {
+        var numCallers = getNumCallers();
+        callerHead.innerHTML  = "Callers(" + numCallers + ")"; 
+    }
+
 }
+
+function initPlusButton() {
+
+    var plusButton = document.createElement('div');
+    plusButton.classList.add(...['plus', 'radius']);
+    return plusButton;
+
+}
+
+updateNumCallers();
