@@ -6,23 +6,29 @@
 
 
 //TODO: make this method an instance method for caller
-function appendCaller() {
+function appendCaller(target) {
 
-    var callerList = document.querySelectorAll('div.square');
-    var id = "caller" + String(callerList.length);
+    console.log("target from clicked button: " + target);
+    console.log("typeof(target) from clicked button: " + typeof(target));
+    var id = "caller" + String(getNumCallers());
 
     var caller = new Caller(id, "No name", "No loc");
     localStorage.setItem(id, caller)
 
-    var callerContainer = document.getElementById("callerContainer")
+    var callerContainer = document.getElementById("callerContainer");
+    console.log("typeof(callerContainer): " + typeof(callerContainer));
+    //var clickedPlusButton = callerContainer.lastChild;
     var linkContainer = initLink();
     var square = initSquare(id);
+    var plusButton = initPlusButton();
+
+    target.remove();
     callerContainer.appendChild(linkContainer);
     callerContainer.appendChild(square);
+    callerContainer.appendChild(plusButton);
+
     localStorage.setItem("callerContainer", callerContainer);
 
-
-    //update num callers display
     updateNumCallers();
 
 }
@@ -290,8 +296,47 @@ function initPlusButton() {
 
     var plusButton = document.createElement('div');
     plusButton.classList.add(...['plus', 'radius']);
+
+    plusButton.addEventListener("click", (event) => appendCaller(event.target));
     return plusButton;
 
 }
 
 updateNumCallers();
+
+
+function createCallerContainer() {
+
+    var cachedContainer = localStorage["callerContainer"];
+    var docBody = document.getElementsByTagName('body').item(0);
+
+    if (cachedContainer != 'null' && cachedContainer !== undefined)  {
+
+        var range = document.createRange();
+        range.selectNodeContents(docBody);
+        var frag = range.createContextualFragment(cachedContainer);
+        docBody.appendChild(frag);
+
+    } else {
+
+        var defaultContainer = document.createElement('div');
+        defaultContainer.className = 'callerContainer';
+        defaultContainer.id = 'callerContainer';
+
+        var hostSquare = document.createElement('div');
+        hostSquare.className = 'square';
+        hostSquare.id = 'hostSquare';
+
+        var hostSquareTxt = document.createElement('p');
+        hostSquareTxt.style.textAlign = 'center';
+        hostSquareTxt.innerText = 'Host';
+
+        hostSquare.appendChild(hostSquareTxt);
+        defaultContainer.appendChild(hostSquare);
+
+        var plusButton = initPlusButton();
+        defaultContainer.appendChild(plusButton);
+
+        docBody.appendChild(defaultContainer);
+    }
+}
