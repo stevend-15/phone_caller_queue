@@ -27,15 +27,9 @@
 
         <script> createCallerContainer();</script>
 
-        <!--TODO: make a confirmation alert-->
-        <div class="action" id="clearDataButton">
-            <button onclick="clearData()" style="background-color: red;color: white"> 
-                Click to reset callers 
-            </button>
-        </div>
+        <div class="container" 
+            style="direction: row;position: fixed;top: 100px;left: 85%;">
 
-        <!--TODO: make timer button move with vertical page scroll-->
-        <div class="container" id="timer" style="direction: row;position: fixed;top: 100px;left: 85%;">
             <form>
                 <label for="timeQuantity"></label>
                 <input type="text" id="timeQuantity" name="timeQuantity"
@@ -45,7 +39,11 @@
             <button onclick="resetTimer()">Reset</button>
             <button onclic="startTimer()">Start</button>
 
-
+            <div class="action" id="clearDataButton">
+                <button onclick="clearData()" style="background-color: red;color: white"> 
+                    Click to reset callers 
+                </button>
+            </div>
         </div>
     </body>
 </html>
