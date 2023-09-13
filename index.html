@@ -8,23 +8,15 @@
         <script src="./timer.js" charset="utf-8"></script>
     </head>
     <body>
-        <div class="container">
-            <h1>Phone Caller Queue Service</h1>
 
-            <!--
-            <div class="action">
-                <button onclick="appendCaller()"> Click to add a 
-                    caller
-                </button>
-            </div>
-            -->
-        </div>
+        <h1 style="text-align: center;">Phone Caller Queue Service</h1>
 
         <h1 id="callerHead" style="text-align:center;">Callers</h1>
 
         <!--TODO: reduce size of caller name/loc input fields-->
         <!--TODO: make the states text box a drop down???-->
         <!--TODO: add a export data feature-->
+        <!--TODO: fix eventListeners being destroyed after refresh-->
 
         <script> createCallerContainer();</script>
 
@@ -33,7 +25,7 @@
         <div class="container" 
             style="direction: row;position: fixed;top: 100px;left: 85%;">
 
-            <p id="countdown">0:00</p>
+            <h2 id="countdown">0:00</h2>
 
             <form>
                 <label for="timeQuantity"></label>

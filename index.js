@@ -5,13 +5,41 @@
 */
 
 
+class Caller {
+
+    constructor(id, name, loc, prev) {
+
+        this.id = id;
+        this.name = name;
+        this.loc = loc;
+        this.status = "nominal";
+        this.prev = prev;
+        this.next = null;
+    }
+
+    toString() {
+        var str = "{";
+        Object.entries(this).forEach((entry) => 
+            str += "\"" + entry[0] + "\"" + ":" + "\"" + entry[1] + "\"" + ", ");
+        str = str.slice(0, str.length - 2);
+        str += "}";
+        return str;
+
+    }
+}
+
+
+
 //TODO: make this method an instance method for caller
 function appendCaller(target) {
 
-    var id = "caller" + String(getNumCallers());
+    var numCallers = getNumCallers();
+    var id = "caller" + String(numCallers);
 
-    var caller = new Caller(id, "No name", "No loc");
-    localStorage.setItem(id, caller)
+    var caller = new Caller(id, null, null, "caller" + String(numCallers - 1));
+    console.log("typeof(caller): " + typeof(caller));
+
+    localStorage.setItem(id, JSON.stringify(caller.toString()));
 
     var callerContainer = document.getElementById("callerContainer");
     var linkContainer = initLink();
@@ -194,12 +222,17 @@ function initInputBoxes() {
         (event) => {
 
             var callerName = event.target.value;
-            console.log("callerName: " + callerName)
 
             var parentSquare = event.target.parentElement.parentElement;
-            var callerObj = localStorage.getItem(parentSquare.id);
+            console.log("parentSquare.id: " + parentSquare.id);
+
+            var callerObj = JSON.parse(JSON.parse(
+                localStorage.getItem(parentSquare.id)));
+            console.log("callerObj: " + callerObj);
+            console.log("typeof(callerObj): " + typeof(callerObj));
             callerObj.name = callerName;
-            localStorage.setItem(parentSquare.id, callerObj);
+            console.log("updated " + callerObj.id + "'s name")
+            localStorage.setItem(parentSquare.id, JSON.stringify(callerObj));
         })
 
     inputDiv.appendChild(callerNameField)
@@ -209,18 +242,19 @@ function initInputBoxes() {
     var callerLocField = document.createElement('input')
     callerLocField.setAttribute("type", "text") 
     callerLocField.setAttribute("id", "callerLoc")
-    callerLocField.setAttribute("placeholder", "Enter caller loc");
+    callerLocField.setAttribute("placeholder", "Enter caller location");
     callerLocField.style.width = "80%";
 
     
     callerLocField.addEventListener("change", 
         (event) => {
             var callerLoc = event.target.value;
-            console.log("callerLoc: " + callerLoc)
 
             var parentSquare = event.target.parentElement.parentElement;
             var callerObj = localStorage.getItem(parentSquare.id);
             callerObj.loc = callerLoc;
+            console.log("updated " + callerObj.id + "'s loc")
+            callerObj.toString();
             localStorage.setItem(parentSquare.id, callerObj);
         })
 
@@ -228,19 +262,6 @@ function initInputBoxes() {
 
     return inputDiv;
 
-}
-
-
-class Caller {
-    constructor(id, name, loc, prev) {
-
-        this.id = id;
-        this.name = name;
-        this.loc = loc;
-        var status = "nominal";
-        this.prev = prev;
-        var next = null;
-    }
 }
 
 
