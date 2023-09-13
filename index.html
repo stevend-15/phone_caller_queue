@@ -5,6 +5,7 @@
         <title> Phone Caller Queue Service</title>
         <link rel="stylesheet" href="./index.css">
         <script src="./index.js" charset="utf-8"></script>
+        <script src="./timer.js" charset="utf-8"></script>
     </head>
     <body>
         <div class="container">
@@ -27,8 +28,12 @@
 
         <script> createCallerContainer();</script>
 
+
+        <!--TODO: enlarge the buttons on this container-->
         <div class="container" 
             style="direction: row;position: fixed;top: 100px;left: 85%;">
+
+            <p id="countdown">0:00</p>
 
             <form>
                 <label for="timeQuantity"></label>
@@ -37,10 +42,11 @@
 
             </form>
             <button onclick="resetTimer()">Reset</button>
-            <button onclic="startTimer()">Start</button>
+            <button onclick="startTimer()">Start</button>
 
             <div class="action" id="clearDataButton">
-                <button onclick="clearData()" style="background-color: red;color: white"> 
+                <button onclick="clearData()" 
+                    style="background-color: red;color: white"> 
                     Click to reset callers 
                 </button>
             </div>
