@@ -17,15 +17,6 @@ class Caller {
         this.next = null;
     }
 
-    toString() {
-        var str = "{";
-        Object.entries(this).forEach((entry) => 
-            str += "\"" + entry[0] + "\"" + ":" + "\"" + entry[1] + "\"" + ", ");
-        str = str.slice(0, str.length - 2);
-        str += "}";
-        return str;
-
-    }
 }
 
 
@@ -38,8 +29,9 @@ function appendCaller(target) {
 
     var caller = new Caller(id, null, null, "caller" + String(numCallers - 1));
     console.log("typeof(caller): " + typeof(caller));
+    console.log("trying to stringify caller obj: " + JSON.stringify(caller));
 
-    localStorage.setItem(id, JSON.stringify(caller.toString()));
+    localStorage.setItem(id, JSON.stringify(caller));
 
     var callerContainer = document.getElementById("callerContainer");
     var linkContainer = initLink();
@@ -226,12 +218,10 @@ function initInputBoxes() {
             var parentSquare = event.target.parentElement.parentElement;
             console.log("parentSquare.id: " + parentSquare.id);
 
-            var callerObj = JSON.parse(JSON.parse(
-                localStorage.getItem(parentSquare.id)));
-            console.log("callerObj: " + callerObj);
-            console.log("typeof(callerObj): " + typeof(callerObj));
+            var callerObj = JSON.parse(
+                localStorage.getItem(parentSquare.id));
             callerObj.name = callerName;
-            console.log("updated " + callerObj.id + "'s name")
+            console.log("Updated " + callerObj.id + "'s name")
             localStorage.setItem(parentSquare.id, JSON.stringify(callerObj));
         })
 
@@ -251,11 +241,14 @@ function initInputBoxes() {
             var callerLoc = event.target.value;
 
             var parentSquare = event.target.parentElement.parentElement;
-            var callerObj = localStorage.getItem(parentSquare.id);
+            console.log("parentSquare.id: " + parentSquare.id);
+
+            var callerObj = JSON.parse(
+                localStorage.getItem(parentSquare.id));
             callerObj.loc = callerLoc;
-            console.log("updated " + callerObj.id + "'s loc")
-            callerObj.toString();
-            localStorage.setItem(parentSquare.id, callerObj);
+            console.log("Updated " + callerObj.id + "'s loc")
+            localStorage.setItem(parentSquare.id, JSON.stringify(callerObj));
+
         })
 
     inputDiv.appendChild(callerLocField)
