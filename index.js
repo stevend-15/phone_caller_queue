@@ -187,11 +187,8 @@ function initInputBoxes() {
     var callerNameField = document.createElement('input')
     callerNameField.setAttribute("type", "text") 
     callerNameField.setAttribute("id", "callerName")
+    callerNameField.setAttribute("placeholder", "Enter caller name");
     callerNameField.style.width = "80%";
-
-    var callerNameLabel = document.createElement('label')
-    callerNameLabel.setAttribute("for", "callerName")
-    callerNameLabel.innerHTML="Caller Name"
 
     callerNameField.addEventListener("change", 
         (event) => {
@@ -205,7 +202,6 @@ function initInputBoxes() {
             localStorage.setItem(parentSquare.id, callerObj);
         })
 
-    inputDiv.appendChild(callerNameLabel)
     inputDiv.appendChild(callerNameField)
     inputDiv.appendChild(lineBr)
     inputDiv.appendChild(lineBr)
@@ -213,11 +209,9 @@ function initInputBoxes() {
     var callerLocField = document.createElement('input')
     callerLocField.setAttribute("type", "text") 
     callerLocField.setAttribute("id", "callerLoc")
+    callerLocField.setAttribute("placeholder", "Enter caller loc");
     callerLocField.style.width = "80%";
 
-    var callerLocLabel = document.createElement('label')
-    callerLocLabel.setAttribute("for", "callerLoc")
-    callerLocLabel.innerHTML="Caller Loc"
     
     callerLocField.addEventListener("change", 
         (event) => {
@@ -230,7 +224,6 @@ function initInputBoxes() {
             localStorage.setItem(parentSquare.id, callerObj);
         })
 
-    inputDiv.appendChild(callerLocLabel)
     inputDiv.appendChild(callerLocField)
 
     return inputDiv;
