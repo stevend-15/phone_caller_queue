@@ -125,8 +125,6 @@ function initStatusButtons() {
     missingButton.innerText = "Missing";
     var droppedButton = document.createElement('button');
     droppedButton.innerText = "Dropped";
-    var justListeningButton = document.createElement('button');
-    justListeningButton.innerHTML = "Just Listening";
     var currentSpeakerButton = document.createElement('button');
     currentSpeakerButton.innerHTML = "Current Speaker";
 
@@ -163,17 +161,6 @@ function initStatusButtons() {
         }
     )
 
-    justListeningButton.addEventListener("click", 
-        (event) => {
-            var parentSquare = event.target.parentElement.parentElement;
-            parentSquare.style.backgroundColor = "grey";
-
-            var callerObj = localStorage.getItem(parentSquare.id);
-            callerObj.status = "justListening";
-            localStorage.setItem(callerObj.id, callerObj);
-        }
-    )
-
     currentSpeakerButton.addEventListener("click", 
         (event) => {
             var parentSquare = event.target.parentElement.parentElement;
@@ -188,7 +175,6 @@ function initStatusButtons() {
     statusDiv.appendChild(nominalButton);
     statusDiv.appendChild(missingButton);
     statusDiv.appendChild(droppedButton);
-    statusDiv.appendChild(justListeningButton);
     statusDiv.appendChild(currentSpeakerButton);
 
     return statusDiv;
@@ -207,7 +193,7 @@ function initInputBoxes() {
     var callerNameField = document.createElement('input')
     callerNameField.setAttribute("type", "text") 
     callerNameField.setAttribute("id", "callerName")
-    callerNameField.setAttribute("placeholder", "Enter caller name");
+    callerNameField.setAttribute("placeholder", "Caller name");
     callerNameField.style.width = "80%";
 
     callerNameField.addEventListener("change", 
@@ -232,7 +218,7 @@ function initInputBoxes() {
     var callerLocField = document.createElement('input')
     callerLocField.setAttribute("type", "text") 
     callerLocField.setAttribute("id", "callerLoc")
-    callerLocField.setAttribute("placeholder", "Enter caller location");
+    callerLocField.setAttribute("placeholder", "Caller location");
     callerLocField.style.width = "80%";
 
     
