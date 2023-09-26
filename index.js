@@ -58,14 +58,21 @@ function initLink() {
     var linkContainer = document.createElement('div')
     linkContainer.className = 'container';
 
+    var insertCallerDiv = document.createElement('div')
+    insertCallerDiv.className = "action";
+
     var arrow = document.createElement('div')
     arrow.className = 'arrow';
     arrow.innerHTML="&#x2192";
     linkContainer.appendChild(arrow)
 
-    var insertCallerDiv = document.createElement('div')
-    insertCallerDiv.className = "action";
+    var plusButton = initPlusButton();
 
+    linkContainer.appendChild(arrow);
+    linkContainer.appendChild(plusButton);
+
+
+    /*
     var insertCallerButton = document.createElement('button')
     insertCallerButton.innerHTML = "Insert new caller";
     insertCallerButton.style.opacity = 0;
@@ -92,6 +99,7 @@ function initLink() {
 
         }
     );
+    */
 
     return linkContainer;
 
