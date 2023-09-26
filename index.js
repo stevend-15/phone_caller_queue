@@ -81,8 +81,8 @@ function initSquare(id) {
     square.className = 'square';
     square.id = id;
 
-    inputBoxDiv = initInputBoxes()
-    square.appendChild(inputBoxDiv)
+    inputBoxDiv = initInputBoxes(id);
+    square.appendChild(inputBoxDiv);
 
     var statusButtons = initStatusButtons();
     square.appendChild(statusButtons);
@@ -153,7 +153,7 @@ function initStatusButtons() {
 }
 
 
-function initInputBoxes() {
+function initInputBoxes(callerID) {
 
     var lineBr = document.createElement('br')
 
@@ -163,7 +163,7 @@ function initInputBoxes() {
 
     var callerNameField = document.createElement('input')
     callerNameField.setAttribute("type", "text") 
-    callerNameField.setAttribute("id", "callerName")
+    callerNameField.setAttribute("id", callerID + "Name")
     callerNameField.setAttribute("placeholder", "Caller name");
     callerNameField.style.width = "80%";
 
@@ -188,7 +188,7 @@ function initInputBoxes() {
 
     var callerLocField = document.createElement('input')
     callerLocField.setAttribute("type", "text") 
-    callerLocField.setAttribute("id", "callerLoc")
+    callerLocField.setAttribute("id", callerID + "Loc")
     callerLocField.setAttribute("placeholder", "Caller location");
     callerLocField.style.width = "80%";
 
