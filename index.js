@@ -36,7 +36,7 @@ function appendCaller(target) {
     var callerContainer = document.getElementById("callerContainer");
     var linkContainer = initLink();
     var square = initSquare(id);
-    var plusButton = initPlusButton();
+    var plusButton = initPlusButton("append");
 
     target.remove();
     callerContainer.appendChild(linkContainer);
@@ -66,43 +66,12 @@ function initLink() {
     arrow.innerHTML="&#x2192";
     linkContainer.appendChild(arrow)
 
-    var plusButton = initPlusButton();
+    var plusButton = initPlusButton("insert");
 
     linkContainer.appendChild(arrow);
     linkContainer.appendChild(plusButton);
 
-
-    /*
-    var insertCallerButton = document.createElement('button')
-    insertCallerButton.innerHTML = "Insert new caller";
-    insertCallerButton.style.opacity = 0;
-    insertCallerDiv.appendChild(insertCallerButton);
-    linkContainer.appendChild(insertCallerDiv);
-
-    insertCallerDiv.addEventListener("mouseover", 
-        (event) => {event.target.style.opacity = 1;}
-    );
-
-    insertCallerDiv.addEventListener("mouseout", 
-        (event) => {event.target.style.opacity = 0;}
-    );
-
-    //TODO: make this method an instance method for caller
-    insertCallerButton.addEventListener("click", 
-        (event) => {
-
-            var linkContainer = event.target.parentElement.parentElement;
-            var square = initSquare();
-            var link = initLink();
-            linkContainer.after(square);
-            square.after(link);
-
-        }
-    );
-    */
-
     return linkContainer;
-
 }
 
 
@@ -289,12 +258,19 @@ function updateNumCallers() {
 
 }
 
-function initPlusButton() {
+function initPlusButton(context) {
 
     var plusButton = document.createElement('div');
     plusButton.classList.add(...['plus', 'radius']);
 
-    plusButton.addEventListener("click", (event) => appendCaller(event.target));
+    if (context == "insert") {
+        //TODO: add mouseover/mouseout event listeners here?
+        plusButton.addEventListener("click", (event) => insertCaller(event.target));
+    }
+    else {
+        plusButton.addEventListener("click", (event) => appendCaller(event.target));
+    }
+
     return plusButton;
 
 }
@@ -302,6 +278,7 @@ function initPlusButton() {
 updateNumCallers();
 
 
+//TODO: maybe remove all this and just make a warning if the user tries to refresh page
 function createCallerContainer() {
 
     var cachedContainer = localStorage["callerContainer"];
@@ -331,7 +308,7 @@ function createCallerContainer() {
         hostSquare.appendChild(hostSquareTxt);
         defaultContainer.appendChild(hostSquare);
 
-        var plusButton = initPlusButton();
+        var plusButton = initPlusButton("append");
         defaultContainer.appendChild(plusButton);
 
         docBody.appendChild(defaultContainer);
