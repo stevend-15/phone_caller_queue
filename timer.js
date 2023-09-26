@@ -1,3 +1,4 @@
+//TODO: make this button type = 'reset'
 function resetTimer() {
 
 }

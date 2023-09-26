@@ -91,19 +91,25 @@ function initSquare(id) {
 
 }
 
+
+function initStatusButton(innerTxt) {
+
+    var button = document.createElement('button');
+    button.innerText = innerTxt;
+    button.type = 'button';
+
+    return button;
+}
+
+
 function initStatusButtons() {
 
     var statusDiv = document.createElement('div')
     statusDiv.className = 'statuses';
 
-    var nominalButton = document.createElement('button');
-    nominalButton.innerText = "Nominal";
-    var missingButton = document.createElement('button');
-    missingButton.innerText = "Missing";
-    var droppedButton = document.createElement('button');
-    droppedButton.innerText = "Dropped";
-    var currentSpeakerButton = document.createElement('button');
-    currentSpeakerButton.innerHTML = "Current Speaker";
+    var nominalButton = initStatusButton("Nominal");
+    var missingButton = initStatusButton("Missing");
+    var currentSpeakerButton = initStatusButton("Current Speaker")
 
     nominalButton.addEventListener("click", 
         (event) => {
@@ -127,17 +133,6 @@ function initStatusButtons() {
         }
     )
 
-    droppedButton.addEventListener("click", 
-        (event) => {
-            var parentSquare = event.target.parentElement.parentElement;
-            parentSquare.style.backgroundColor = "red";
-
-            var callerObj = localStorage.getItem(parentSquare.id);
-            callerObj.status = "dropped";
-            localStorage.setItem(callerObj.id, callerObj);
-        }
-    )
-
     currentSpeakerButton.addEventListener("click", 
         (event) => {
             var parentSquare = event.target.parentElement.parentElement;
@@ -151,7 +146,6 @@ function initStatusButtons() {
 
     statusDiv.appendChild(nominalButton);
     statusDiv.appendChild(missingButton);
-    statusDiv.appendChild(droppedButton);
     statusDiv.appendChild(currentSpeakerButton);
 
     return statusDiv;
