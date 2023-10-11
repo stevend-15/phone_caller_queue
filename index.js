@@ -26,19 +26,26 @@ function appendCaller(target) {
 
     var numCallers = getNumCallers();
     var id = "caller" + String(numCallers);
+    //console.log("Appending caller '" + id + "'...\n")
+    var prevCallerID = "caller" + String(numCallers - 1)
+    //console.log("prevCallerID: " + prevCallerID);
 
-    var caller = new Caller(id, null, null, "caller" + String(numCallers - 1));
-    console.log("typeof(caller): " + typeof(caller));
-    console.log("trying to stringify caller obj: " + JSON.stringify(caller));
-
+    var caller = new Caller(id, null, null, prevCallerID);
     localStorage.setItem(id, JSON.stringify(caller));
+
+    if (prevCallerID != "caller0") {
+        var prevCaller = JSON.parse(localStorage.getItem(prevCallerID))
+        prevCaller.next = id;
+        localStorage.setItem(prevCallerID, JSON.stringify(prevCaller));
+    }
+
 
     var callerContainer = document.getElementById("callerContainer");
     var linkContainer = initLink();
     var square = initSquare(id);
     var plusButton = initPlusButton("append");
 
-    target.remove();
+    target.remove(); //remove the old plus button to make room for 
     callerContainer.appendChild(linkContainer);
     callerContainer.appendChild(square);
     callerContainer.appendChild(plusButton);
@@ -49,9 +56,55 @@ function appendCaller(target) {
 
 }
 
+//TODO: need to handle edge case where the head and tail are adjacent and 
+//tail needs to be deleted. 
+//Specifically, need to change the link container on the head to just a plus button
+function delCaller(ev) {
+
+    var delSquare = ev.target.parentElement;
+    console.log("delSquare: " + delSquare);
+    console.log("delSquare.className: " + delSquare.className);
+    var delCaller = JSON.parse(localStorage.getItem(delSquare.id));
+    console.log("Deleting caller " + delCaller.id);
+    console.log("delCaller obj: " + JSON.stringify(delCaller));
+
+    //var nextCaller = localStorage.getItem(delCaller.next);
+    //console.log("nextCaller: " + nextCaller.id);
+    var nextCaller = JSON.parse(localStorage.getItem(delCaller.next));
+    console.log("nextCaller: " + localStorage.getItem(delCaller.next));
+    console.log("typeof(nextCaller): " + typeof(nextCaller));
+
+    var prevCaller = JSON.parse(localStorage.getItem(delCaller.prev));
+    console.log("prevCaller: " + prevCaller);
+    console.log("typeof(prevCaller): " + typeof(prevCaller));
+
+    if (nextCaller) {
+        console.log("nextCaller is some form of true");
+        prevCaller.next = nextCaller.id;
+        console.log("prevCaller.next is now " + nextCaller.id);
+        nextCaller.prev = prevCaller.id;
+        console.log("nextCaller.prev is now " + prevCaller.id);
+        localStorage.setItem(nextCaller.id, JSON.stringify(nextCaller));
+    }
+
+    if (prevCaller) {
+        prevCaller.next = null;
+        localStorage.setItem(prevCaller.id, JSON.stringify(prevCaller));
+    }
+
+    localStorage.removeItem(delCaller.id);
+
+    //remove the actual html elements
+    var linkContainer = delSquare.nextElementSibling;
+    console.log("linkContainer? : " + linkContainer);
+    console.log("linkContainer.className? : " + linkContainer.className);
+    delSquare.remove();
+    linkContainer.remove();
+
+}
 
 /*
-    A link consists of an arrow and a show/hide button b/w callers
+    A link consists of an arrow and a show/hide plus button b/w callers
 */
 function initLink() {
 
@@ -87,11 +140,13 @@ function initSquare(id) {
     var statusButtons = initStatusButtons();
     square.appendChild(statusButtons);
 
+    square.appendChild(initDelCallerButton());
+
     return square;
 
 }
 
-
+//TODO: make the current speaker button a Singleton
 function initStatusButton(innerTxt) {
 
     var button = document.createElement('button');
@@ -178,7 +233,7 @@ function initInputBoxes(callerID) {
             var callerObj = JSON.parse(
                 localStorage.getItem(parentSquare.id));
             callerObj.name = callerName;
-            console.log("Updated " + callerObj.id + "'s name")
+            //console.log("Updated " + callerObj.id + "'s name")
             localStorage.setItem(parentSquare.id, JSON.stringify(callerObj));
         })
 
@@ -203,7 +258,7 @@ function initInputBoxes(callerID) {
             var callerObj = JSON.parse(
                 localStorage.getItem(parentSquare.id));
             callerObj.loc = callerLoc;
-            console.log("Updated " + callerObj.id + "'s loc")
+            //console.log("Updated " + callerObj.id + "'s loc")
             localStorage.setItem(parentSquare.id, JSON.stringify(callerObj));
 
         })
@@ -214,6 +269,31 @@ function initInputBoxes(callerID) {
 
 }
 
+
+function initDelCallerButton() {
+
+    var delButton = document.createElement('button');
+    delButton.innerText = 'Delete Caller';
+    delButton.type = 'button';
+    delButton.style.backgroundColor = 'red';
+    delButton.style.color = 'white';
+
+    delButton.addEventListener("click", (event) => {
+        
+        var confirmed = confirm("Are you sure you want to delete this caller?");
+
+        if (confirmed) {
+            //console.log("Yes, user wants to delete callr")
+            delCaller(event);
+            //delCaller()
+        }
+    })
+
+    //window.confirm("Are you sure you want to delete this caller?")
+
+    return delButton;
+
+}
 
 function clearData() {
     localStorage.clear();
@@ -284,6 +364,7 @@ function createCallerContainer() {
         range.selectNodeContents(docBody);
         var frag = range.createContextualFragment(cachedContainer);
         docBody.appendChild(frag);
+        updateNumCallers();
 
     } else {
 

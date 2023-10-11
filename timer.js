@@ -1,4 +1,5 @@
 //TODO: make this button type = 'reset'
+//TODO: change text input field to plus/minus buttons
 function resetTimer() {
 
 }
