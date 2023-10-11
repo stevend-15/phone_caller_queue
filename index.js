@@ -26,21 +26,16 @@ function appendCaller(target) {
 
     var numCallers = getNumCallers();
     var id = "caller" + String(numCallers);
-    //console.log("Appending caller '" + id + "'...\n")
-    //TODO: need to change this to grab the DOM object, not just count the prevCaller
+
     var tailSquare = getTailSquare();
     var prevCallerID = tailSquare.id;
-    //var prevCallerID = "caller" + String(numCallers - 1)
-    //console.log("prevCallerID: " + prevCallerID);
 
     var caller = new Caller(id, null, null, prevCallerID);
     localStorage.setItem(id, JSON.stringify(caller));
 
-    if (prevCallerID != "hostSquare") {
-        var prevCaller = JSON.parse(localStorage.getItem(prevCallerID))
-        prevCaller.next = id;
-        localStorage.setItem(prevCallerID, JSON.stringify(prevCaller));
-    }
+    var prevCaller = JSON.parse(localStorage.getItem(prevCallerID))
+    prevCaller.next = id;
+    localStorage.setItem(prevCallerID, JSON.stringify(prevCaller));
 
 
     var callerContainer = document.getElementById("callerContainer");
@@ -65,8 +60,8 @@ function appendCaller(target) {
 function delCaller(ev) {
 
     var delSquare = ev.target.parentElement;
-    console.log("delSquare: " + delSquare);
-    console.log("delSquare.className: " + delSquare.className);
+    //console.log("delSquare: " + delSquare);
+    //console.log("delSquare.className: " + delSquare.className);
     var delCaller = JSON.parse(localStorage.getItem(delSquare.id));
     console.log("Deleting caller " + delCaller.id);
     console.log("delCaller obj: " + JSON.stringify(delCaller));
@@ -84,23 +79,26 @@ function delCaller(ev) {
     if (nextCaller) {
         console.log("nextCaller is some form of true");
         prevCaller.next = nextCaller.id;
-        console.log("prevCaller.next is now " + nextCaller.id);
+        console.log("prevCaller.next is now " + prevCaller.next);
         nextCaller.prev = prevCaller.id;
-        console.log("nextCaller.prev is now " + prevCaller.id);
+        console.log("nextCaller.prev is now " + nextCaller.prev);
         localStorage.setItem(nextCaller.id, JSON.stringify(nextCaller));
-    }
-
-    if (prevCaller) {
-        prevCaller.next = null;
         localStorage.setItem(prevCaller.id, JSON.stringify(prevCaller));
     }
+    else {
+        console.log("nextCaller is some form of false");
+        prevCaller.next = null;
+        console.log("prevCaller.next is now " + prevCaller.next);
+        localStorage.setItem(prevCaller.id, JSON.stringify(prevCaller));
+    }
+
 
     localStorage.removeItem(delCaller.id);
 
     //remove the actual html elements
     var linkContainer = delSquare.nextElementSibling;
-    console.log("linkContainer? : " + linkContainer);
-    console.log("linkContainer.className? : " + linkContainer.className);
+    //console.log("linkContainer? : " + linkContainer);
+    //console.log("linkContainer.className? : " + linkContainer.className);
     delSquare.remove();
     linkContainer.remove();
 
@@ -347,14 +345,8 @@ function getNumCallers() {
 function getTailSquare() {
 
     var squares = document.querySelectorAll('div.square');
-    //console.log("squares: " + squares);
-    //console.log("typeof(squares): " + typeof(squares));
-
     var tailSquare = squares[squares.length -1]
     return tailSquare;
-    //console.log("tailSquare: " + tailSquare);
-    //console.log("tailSquare.id: " + tailSquare.id);
-    //console.log("typeof(tailSquare: " + typeof(tailSquare));
 }
 
 
@@ -386,6 +378,7 @@ function initPlusButton(context) {
 }
 
 updateNumCallers();
+localStorage.setItem("hostSquare", JSON.stringify(new Caller("hostSquare", null, null, null)));
 
 
 //TODO: maybe remove all this and just make a warning if the user tries to refresh page
