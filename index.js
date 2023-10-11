@@ -27,13 +27,16 @@ function appendCaller(target) {
     var numCallers = getNumCallers();
     var id = "caller" + String(numCallers);
     //console.log("Appending caller '" + id + "'...\n")
-    var prevCallerID = "caller" + String(numCallers - 1)
+    //TODO: need to change this to grab the DOM object, not just count the prevCaller
+    var tailSquare = getTailSquare();
+    var prevCallerID = tailSquare.id;
+    //var prevCallerID = "caller" + String(numCallers - 1)
     //console.log("prevCallerID: " + prevCallerID);
 
     var caller = new Caller(id, null, null, prevCallerID);
     localStorage.setItem(id, JSON.stringify(caller));
 
-    if (prevCallerID != "caller0") {
+    if (prevCallerID != "hostSquare") {
         var prevCaller = JSON.parse(localStorage.getItem(prevCallerID))
         prevCaller.next = id;
         localStorage.setItem(prevCallerID, JSON.stringify(prevCaller));
@@ -162,10 +165,12 @@ function initStatusButtons() {
     var statusDiv = document.createElement('div')
     statusDiv.className = 'statuses';
 
+    //init the buttons
     var nominalButton = initStatusButton("Nominal");
     var missingButton = initStatusButton("Missing");
     var currentSpeakerButton = initStatusButton("Current Speaker")
 
+    //add the event listeners
     nominalButton.addEventListener("click", 
         (event) => {
             var parentSquare = event.target.parentElement.parentElement;
@@ -188,8 +193,24 @@ function initStatusButtons() {
         }
     )
 
+    //Current speaker behavior is Singleton across application
     currentSpeakerButton.addEventListener("click", 
         (event) => {
+
+            var found = false;
+            var curr = JSON.parse(localStorage.getItem("caller0"));
+            console.log("curr: " + curr);
+            while (curr.next) {
+
+                if (curr.status == "currentSpeaker") {
+                    found = true;
+                    console.log("Current speaker is: " + curr.id);
+                    break;
+                }
+
+                curr = curr.next;
+                
+            }
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "purple";
 
@@ -199,6 +220,7 @@ function initStatusButtons() {
         }
     )
 
+    //add the buttons to the DOM
     statusDiv.appendChild(nominalButton);
     statusDiv.appendChild(missingButton);
     statusDiv.appendChild(currentSpeakerButton);
@@ -319,6 +341,20 @@ function getNumCallers() {
 
     return document.querySelectorAll('div.square').length;
 
+}
+
+
+function getTailSquare() {
+
+    var squares = document.querySelectorAll('div.square');
+    //console.log("squares: " + squares);
+    //console.log("typeof(squares): " + typeof(squares));
+
+    var tailSquare = squares[squares.length -1]
+    return tailSquare;
+    //console.log("tailSquare: " + tailSquare);
+    //console.log("tailSquare.id: " + tailSquare.id);
+    //console.log("typeof(tailSquare: " + typeof(tailSquare));
 }
 
 
