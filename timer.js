@@ -1,34 +1,31 @@
 //TODO: make this button type = 'reset'
-//TODO: change text input field to plus/minus buttons
 function resetTimer() {
 
 }
 
-function incTimer() {
-
-    var countdown = document.getElementById("countdown")
-    var numMins = parseInt(countdown.innerText.split(":")[0]);
-    numMins = numMins + 1;
-    //console.log("numMins: " + numMins);
-    countdown.innerHTML = numMins + ":00";
-}
-
-
-function decTimer() {
+function adjustTimer(context) {
 
     var countdown = document.getElementById("countdown")
     var numMins = parseInt(countdown.innerText.split(":")[0]);
 
-    if (numMins == 0) {
+    if (context == "dec" && numMins == 0) {
         console.log("Hey, you can't have negative time!!")
         return;
+    } 
+
+    if (context == "inc") {
+        numMins = numMins + 1;
     }
-    numMins = numMins - 1;
-    //console.log("numMins: " + numMins);
+    else if (context == "dec") {
+        numMins = numMins - 1;
+    }
+    else {
+        console.log("Error, wrong type of adjustment somehow")
+    }
+
     countdown.innerHTML = numMins + ":00";
-
-
 }
+
 
 function startTimer() {
 
