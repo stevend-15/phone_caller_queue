@@ -195,26 +195,25 @@ function initStatusButtons() {
     currentSpeakerButton.addEventListener("click", 
         (event) => {
 
-            var found = false;
-            var curr = JSON.parse(localStorage.getItem("caller0"));
-            console.log("curr: " + curr);
-            while (curr.next) {
+            var curr = JSON.parse(localStorage.getItem("hostSquare"));
+            while (curr) {
+
 
                 if (curr.status == "currentSpeaker") {
-                    found = true;
-                    console.log("Current speaker is: " + curr.id);
-                    break;
+                    var currSpeakerSquare = document.getElementById(curr.id);
+                    currSpeakerSquare.style.backgroundColor = "aquamarine";
                 }
 
-                curr = curr.next;
+                curr = JSON.parse(localStorage.getItem(curr.next));
                 
             }
+
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "purple";
 
-            var callerObj = localStorage.getItem(parentSquare.id);
+            var callerObj = JSON.parse(localStorage.getItem(parentSquare.id));
             callerObj.status = "currentSpeaker";
-            localStorage.setItem(callerObj.id, callerObj);
+            localStorage.setItem(callerObj.id, JSON.stringify(callerObj));
         }
     )
 
