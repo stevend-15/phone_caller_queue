@@ -252,7 +252,7 @@ function initInputBoxes(callerID) {
     var callerNameField = document.createElement('input')
     callerNameField.setAttribute("type", "text") 
     callerNameField.setAttribute("id", callerID + "Name")
-    callerNameField.setAttribute("placeholder", "Caller name");
+    callerNameField.setAttribute("placeholder", "Name");
     callerNameField.style.width = "80%";
 
     callerNameField.addEventListener("change", 
@@ -266,7 +266,6 @@ function initInputBoxes(callerID) {
             var callerObj = JSON.parse(
                 localStorage.getItem(parentSquare.id));
             callerObj.name = callerName;
-            //console.log("Updated " + callerObj.id + "'s name")
             localStorage.setItem(parentSquare.id, JSON.stringify(callerObj));
         })
 
@@ -277,7 +276,7 @@ function initInputBoxes(callerID) {
     var callerLocField = document.createElement('input')
     callerLocField.setAttribute("type", "text") 
     callerLocField.setAttribute("id", callerID + "Loc")
-    callerLocField.setAttribute("placeholder", "Caller location");
+    callerLocField.setAttribute("placeholder", "Location");
     callerLocField.style.width = "80%";
 
     
@@ -291,7 +290,6 @@ function initInputBoxes(callerID) {
             var callerObj = JSON.parse(
                 localStorage.getItem(parentSquare.id));
             callerObj.loc = callerLoc;
-            //console.log("Updated " + callerObj.id + "'s loc")
             localStorage.setItem(parentSquare.id, JSON.stringify(callerObj));
 
         })
