@@ -14,7 +14,6 @@
         <h1 id="callerHead" style="text-align:center;">Callers</h1>
 
         <!--TODO: reduce size of caller name/loc input fields-->
-        <!--TODO: make the states text box a drop down???-->
         <!--TODO: add a export data feature-->
         <!--TODO: fix eventListeners being destroyed after refresh-->
 
@@ -37,11 +36,23 @@
             <button onclick="startTimer()">Start</button>
 
             <!--TODO: make a confirmation pop up for this button-->
-            <div class="action" id="clearDataButton">
+            <div class="button" id="resetCallersButton">
                 <button onclick="clearData()" 
                     style="background-color: red;color: white"> 
                     Click to reset callers 
                 </button>
+                <script>
+                var resetCallersButton = document.getElementById("resetCallersButton");
+                resetCallersButton.addEventListener("click", () => {
+
+                    var confirmed = confirm("Are you sure you want to reset all callers?");
+
+                    if (confirmed) {
+                        clearData();
+                    }
+                    
+                })
+                </script>
             </div>
         </div>
     </body>
