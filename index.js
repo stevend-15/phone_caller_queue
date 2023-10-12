@@ -167,6 +167,7 @@ function initStatusButtons() {
     var nominalButton = initStatusButton("Nominal");
     var missingButton = initStatusButton("Missing");
     var currentSpeakerButton = initStatusButton("Current Speaker")
+    var finishedButton = initStatusButton("Finished")
 
     //add the event listeners
     nominalButton.addEventListener("click", 
@@ -217,10 +218,23 @@ function initStatusButtons() {
         }
     )
 
+    finishedButton.addEventListener("click", 
+        (event) => {
+            var parentSquare = event.target.parentElement.parentElement;
+            parentSquare.style.backgroundColor = "gray";
+
+            var callerObj = localStorage.getItem(parentSquare.id);
+            callerObj.status = "finished";
+            localStorage.setItem(callerObj.id, callerObj);
+        }
+    )
+
+
     //add the buttons to the DOM
     statusDiv.appendChild(nominalButton);
     statusDiv.appendChild(missingButton);
     statusDiv.appendChild(currentSpeakerButton);
+    statusDiv.appendChild(finishedButton);
 
     return statusDiv;
 
