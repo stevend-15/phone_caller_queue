@@ -6,6 +6,13 @@ function resetTimer() {
 function adjustTimer(context) {
 
     var countdown = document.getElementById("countdown")
+
+    if (countdown.innerText == "TIME") {
+        countdown.innerHTML = "0:00";
+        return;
+    }
+
+
     var numMins = parseInt(countdown.innerText.split(":")[0]);
 
     if (context == "dec" && numMins == 0) {

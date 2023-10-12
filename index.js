@@ -166,9 +166,9 @@ function initStatusButtons() {
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "aquamarine";
 
-            var callerObj = localStorage.getItem(parentSquare.id);
+            var callerObj = JSON.parse(localStorage.getItem(parentSquare.id));
             callerObj.status = "nominal";
-            localStorage.setItem(callerObj.id, callerObj);
+            localStorage.setItem(callerObj.id, JSON.stringify(callerObj));
         }
     )
 
@@ -177,9 +177,9 @@ function initStatusButtons() {
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "yellow";
 
-            var callerObj = localStorage.getItem(parentSquare.id);
+            var callerObj = JSON.parse(localStorage.getItem(parentSquare.id));
             callerObj.status = "missing";
-            localStorage.setItem(callerObj.id, callerObj);
+            localStorage.setItem(callerObj.id, JSON.stringify(callerObj));
         }
     )
 
@@ -214,9 +214,9 @@ function initStatusButtons() {
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "gray";
 
-            var callerObj = localStorage.getItem(parentSquare.id);
+            var callerObj = JSON.parse(localStorage.getItem(parentSquare.id));
             callerObj.status = "finished";
-            localStorage.setItem(callerObj.id, callerObj);
+            localStorage.setItem(callerObj.id, JSON.stringify(callerObj));
         }
     )
 
