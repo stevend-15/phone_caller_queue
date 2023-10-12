@@ -21,23 +21,24 @@
 
 
         <!--TODO: enlarge the buttons on this container-->
-        <div class="container" 
-            style="direction: row;position: fixed;top: 100px;left: 85%;">
+        <div class="timerContainer" 
+            style="display: inline-block;justify-content:center; align-items: center;position: fixed;top: 100px;left: 85%;">
 
-            <h2 id="countdown">0:00</h2>
+            <h2 id="countdown" style="text-align: center;"countdown>0:00</h2>
 
-            <form>
-                <label for="timeQuantity"></label>
-                <input type="text" id="timeQuantity" name="timeQuantity"
-                placeholder="Enter time in minutes"> 
+            <div style="display: inline-block;">
+                <button onclick="decTimer()">-</button>
+                <button onclick="incTimer()">+</button>
+            </div>
 
-            </form>
-            <button onclick="resetTimer()">Reset</button>
-            <button onclick="startTimer()">Start</button>
+            <div>
+                <button onclick="resetTimer()">Reset</button>
+                <button onclick="startTimer()">Start</button>
+            </div>
 
             <!--TODO: make a confirmation pop up for this button-->
             <div class="button" id="resetCallersButton">
-                <button onclick="clearData()" 
+                <button type="button" onclick="clearData()" 
                     style="background-color: red;color: white"> 
                     Click to reset callers 
                 </button>

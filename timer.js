@@ -4,56 +4,64 @@ function resetTimer() {
 
 }
 
+function incTimer() {
+
+    var countdown = document.getElementById("countdown")
+    var numMins = parseInt(countdown.innerText.split(":")[0]);
+    numMins = numMins + 1;
+    //console.log("numMins: " + numMins);
+    countdown.innerHTML = numMins + ":00";
+}
+
+
+function decTimer() {
+
+    var countdown = document.getElementById("countdown")
+    var numMins = parseInt(countdown.innerText.split(":")[0]);
+
+    if (numMins == 0) {
+        console.log("Hey, you can't have negative time!!")
+        return;
+    }
+    numMins = numMins - 1;
+    //console.log("numMins: " + numMins);
+    countdown.innerHTML = numMins + ":00";
+
+
+}
 
 function startTimer() {
 
-    var timeQ = parseInt(getTimeQuantity()) * 60;
+    var countdown = document.getElementById("countdown");
+    var numMins = parseInt(countdown.innerText);
+    var numSecs = numMins * 60;
     var currentSeconds = new Date().getTime() / 1000;
-    var timerFinish = currentSeconds + timeQ;
+    console.log("currentSeconds: " + currentSeconds);
+    var timerFinish = currentSeconds + numSecs;
+    console.log("timeFinish: " + timerFinish);
 
 
-    var interval = setInterval(function(timeQ) {
+    var interval = setInterval(function() {
 
-        var now = new Date().getTime() / 1000;
-        var distance = timerFinish - now;
+        var nowSecs = new Date().getTime() / 1000;
+        var distance = timerFinish - nowSecs;
 
         var minutes = Math.floor((distance % 1000/ 60));
         var seconds = Math.floor((distance % 60));
+
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
 
         let newCountdown = minutes + ":" + seconds 
         document.getElementById('countdown').innerHTML = newCountdown;
 
         if (distance < 0) {
             clearInterval(interval);
-            document.getElementById('countdown').innerHTML = "EXPIRED";
+            //document.getElementById('countdown').innerHTML = "EXPIRED";
+            countdown.innerHTML = "TIME";
         }
 
-
-
     }, 1000);
-
-}
-
-
-function getTimeQuantity() {
-
-    //get the timer form data
-    var timeField = document.getElementById('timeQuantity').value;
-    console.log("timeField.value: " + timeField);
-
-    //get the timeQuantity from GET
-    let params = new URLSearchParams(location.search);
-    var timeQuantity = params.get('timeQuantity');
-    console.log("timeQuantity retrieved from GET: " + timeQuantity);
-    console.log("typeof(timeQuantity) retrieved from GET: " + typeof(timeQuantity));
-
-    if (timeQuantity == null && timeField == "") {
-        alert("Time input field is empty!");
-        return null;
-
-    }
-
-    return  timeField != null ? timeField : timeQuantity;
-
 
 }
