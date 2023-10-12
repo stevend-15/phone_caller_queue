@@ -20,8 +20,6 @@ class Caller {
 }
 
 
-
-//TODO: make this method an instance method for caller
 function appendCaller(target) {
 
     var numCallers = getNumCallers();
@@ -43,7 +41,7 @@ function appendCaller(target) {
     var square = initSquare(id);
     var plusButton = initPlusButton("append");
 
-    target.remove(); //remove the old plus button to make room for 
+    target.remove(); //remove old plus button for arrow & new plus button
     callerContainer.appendChild(linkContainer);
     callerContainer.appendChild(square);
     callerContainer.appendChild(plusButton);
@@ -60,14 +58,10 @@ function appendCaller(target) {
 function delCaller(ev) {
 
     var delSquare = ev.target.parentElement;
-    //console.log("delSquare: " + delSquare);
-    //console.log("delSquare.className: " + delSquare.className);
     var delCaller = JSON.parse(localStorage.getItem(delSquare.id));
     console.log("Deleting caller " + delCaller.id);
     console.log("delCaller obj: " + JSON.stringify(delCaller));
 
-    //var nextCaller = localStorage.getItem(delCaller.next);
-    //console.log("nextCaller: " + nextCaller.id);
     var nextCaller = JSON.parse(localStorage.getItem(delCaller.next));
     console.log("nextCaller: " + localStorage.getItem(delCaller.next));
     console.log("typeof(nextCaller): " + typeof(nextCaller));
@@ -97,15 +91,13 @@ function delCaller(ev) {
 
     //remove the actual html elements
     var linkContainer = delSquare.nextElementSibling;
-    //console.log("linkContainer? : " + linkContainer);
-    //console.log("linkContainer.className? : " + linkContainer.className);
     delSquare.remove();
     linkContainer.remove();
 
 }
 
 /*
-    A link consists of an arrow and a show/hide plus button b/w callers
+    A link consists of arrow and  show/hide plus button b/w callers
 */
 function initLink() {
 
@@ -147,7 +139,6 @@ function initSquare(id) {
 
 }
 
-//TODO: make the current speaker button a Singleton
 function initStatusButton(innerTxt) {
 
     var button = document.createElement('button');
@@ -163,13 +154,13 @@ function initStatusButtons() {
     var statusDiv = document.createElement('div')
     statusDiv.className = 'statuses';
 
-    //init the buttons
+    //init buttons
     var nominalButton = initStatusButton("Nominal");
     var missingButton = initStatusButton("Missing");
     var currentSpeakerButton = initStatusButton("Current Speaker")
     var finishedButton = initStatusButton("Finished")
 
-    //add the event listeners
+    //add event listeners
     nominalButton.addEventListener("click", 
         (event) => {
             var parentSquare = event.target.parentElement.parentElement;
@@ -230,7 +221,7 @@ function initStatusButtons() {
     )
 
 
-    //add the buttons to the DOM
+    //add buttons to DOM
     statusDiv.appendChild(nominalButton);
     statusDiv.appendChild(missingButton);
     statusDiv.appendChild(currentSpeakerButton);
@@ -314,13 +305,10 @@ function initDelCallerButton() {
         var confirmed = confirm("Are you sure you want to delete this caller?");
 
         if (confirmed) {
-            //console.log("Yes, user wants to delete callr")
             delCaller(event);
-            //delCaller()
         }
     })
 
-    //window.confirm("Are you sure you want to delete this caller?")
 
     return delButton;
 
