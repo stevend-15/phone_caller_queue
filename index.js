@@ -22,6 +22,7 @@ class Caller {
 
 function appendCaller(target) {
 
+    //TODO: change this to be TOTAL_NUM_CALLERS constant
     var numCallers = getNumCallers();
     var id = "caller" + String(numCallers);
 
