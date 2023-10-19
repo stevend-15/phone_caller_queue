@@ -235,17 +235,15 @@ function initStatusButtons() {
 
 function initInputBoxes(callerID) {
 
-    var lineBr = document.createElement('br')
-
     var inputDiv = document.createElement('div')
     inputDiv.style.float = "left";
     inputDiv.style.width = "50%";
 
     var callerNameField = document.createElement('input')
+    callerNameField.setAttribute("class", "input");
     callerNameField.setAttribute("type", "text") 
     callerNameField.setAttribute("id", callerID + "Name")
     callerNameField.setAttribute("placeholder", "Name");
-    callerNameField.style.width = "80%";
 
     callerNameField.addEventListener("change", 
         (event) => {
@@ -262,14 +260,13 @@ function initInputBoxes(callerID) {
         })
 
     inputDiv.appendChild(callerNameField)
-    inputDiv.appendChild(lineBr)
-    inputDiv.appendChild(lineBr)
 
     var callerLocField = document.createElement('input')
+    console.log("callerLocField.class: " + callerLocField.className);
+    callerLocField.setAttribute("class", "input");
     callerLocField.setAttribute("type", "text") 
     callerLocField.setAttribute("id", callerID + "Loc")
     callerLocField.setAttribute("placeholder", "Location");
-    callerLocField.style.width = "80%";
 
     
     callerLocField.addEventListener("change", 
