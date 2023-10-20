@@ -233,7 +233,6 @@ function initStatusButtons() {
                 
             }
 
-            var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "purple";
 
             var callerObj = JSON.parse(localStorage.getItem(parentSquare.id));
@@ -292,6 +291,19 @@ function updatedDisabledButton(ev) {
 }
 
 
+function initInputBox(id, placeholder) {
+
+    var inputBox = document.createElement('input')
+    inputBox.setAttribute("class", "input");
+    inputBox.setAttribute("type", "text") 
+    inputBox.setAttribute("id", id + "Name")
+    inputBox.setAttribute("placeholder", placeholder);
+
+    return inputBox;
+
+}
+
+
 function initInputBoxes(callerID) {
 
     var inputDiv = document.createElement('div')
@@ -299,11 +311,9 @@ function initInputBoxes(callerID) {
     inputDiv.style.float = "left";
     inputDiv.style.width = "50%";
 
-    var callerNameField = document.createElement('input')
-    callerNameField.setAttribute("class", "input");
-    callerNameField.setAttribute("type", "text") 
-    callerNameField.setAttribute("id", callerID + "Name")
-    callerNameField.setAttribute("placeholder", "Name");
+
+    var callerNameField = initInputBox(callerID, "Name");
+    var callerLocField = initInputBox(callerID, "Location");
 
     callerNameField.addEventListener("change", 
         (event) => {
@@ -321,14 +331,6 @@ function initInputBoxes(callerID) {
 
     inputDiv.appendChild(callerNameField)
 
-    var callerLocField = document.createElement('input')
-    console.log("callerLocField.class: " + callerLocField.className);
-    callerLocField.setAttribute("class", "input");
-    callerLocField.setAttribute("type", "text") 
-    callerLocField.setAttribute("id", callerID + "Loc")
-    callerLocField.setAttribute("placeholder", "Location");
-
-    
     callerLocField.addEventListener("change", 
         (event) => {
             var callerLoc = event.target.value;
