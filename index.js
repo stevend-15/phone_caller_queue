@@ -167,13 +167,17 @@ function initStatusButtons() {
 
     //init buttons
     var nominalButton = initStatusButton("Nominal");
+    nominalButton.setAttribute("disabled", "disabled");
     var missingButton = initStatusButton("Missing");
-    var currentSpeakerButton = initStatusButton("Current Speaker")
+    var currentSpeakerButton = initStatusButton("Speaking")
     var finishedButton = initStatusButton("Finished")
 
     //add event listeners
     nominalButton.addEventListener("click", 
         (event) => {
+
+            updatedDisabledButton(event);
+
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "aquamarine";
 
@@ -185,9 +189,14 @@ function initStatusButtons() {
 
     missingButton.addEventListener("click", 
         (event) => {
+            
+            updatedDisabledButton(event);
+
+            //update the square color
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "yellow";
 
+            //update the object in memory
             var callerObj = JSON.parse(localStorage.getItem(parentSquare.id));
             callerObj.status = "missing";
             localStorage.setItem(callerObj.id, JSON.stringify(callerObj));
@@ -195,15 +204,28 @@ function initStatusButtons() {
     )
 
     //Current speaker behavior is Singleton across application
+    //TODO: fix status button disabled and current speaker issues 
     currentSpeakerButton.addEventListener("click", 
         (event) => {
 
+            updatedDisabledButton(event);
+
+            var parentSquare = event.target.parentElement.parentElement;
             var curr = JSON.parse(localStorage.getItem("hostSquare"));
             while (curr) {
 
 
-                if (curr.status == "currentSpeaker") {
+                if (curr.status == "currentSpeaker" && 
+                    curr.id != parentSquare.id) {
                     var currSpeakerSquare = document.getElementById(curr.id);
+
+                    //update the status button
+                    var statusButtonsDiv = currSpeakerSquare.children[1];
+                    console.log("statusButtonsDiv.className: " + statusButtonsDiv.className);
+                    var statusButtons = statusButtonsDiv.children;
+                    statusButtons[0].setAttribute("disabled", "disabled");
+                    statusButtons[2].removeAttribute("disabled");
+
                     currSpeakerSquare.style.backgroundColor = "aquamarine";
                 }
 
@@ -217,11 +239,15 @@ function initStatusButtons() {
             var callerObj = JSON.parse(localStorage.getItem(parentSquare.id));
             callerObj.status = "currentSpeaker";
             localStorage.setItem(callerObj.id, JSON.stringify(callerObj));
+
         }
     )
 
     finishedButton.addEventListener("click", 
         (event) => {
+
+            updatedDisabledButton(event);
+
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "gray";
 
@@ -232,7 +258,7 @@ function initStatusButtons() {
     )
 
 
-    //add buttons to DOM
+    //add buttons to div
     statusDiv.appendChild(nominalButton);
     statusDiv.appendChild(missingButton);
     statusDiv.appendChild(currentSpeakerButton);
@@ -243,9 +269,33 @@ function initStatusButtons() {
 }
 
 
+function updatedDisabledButton(ev) {
+
+    //enable/disable status buttons
+    var clickedButton = ev.target;
+    var statusButtonsDiv = ev.target.parentElement;
+    console.log("statusButtonsDiv after click: " + statusButtonsDiv.className);
+    var statusButtons = statusButtonsDiv.children;
+    console.log("statusButtons: " + statusButtons);
+
+    for (let button of statusButtons) {
+
+        console.log("button.disabled?: " + button.disabled);
+        if (button.disabled) {
+            button.removeAttribute("disabled")
+            break;
+        }
+    }
+
+    clickedButton.setAttribute("disabled", "disabled");
+
+}
+
+
 function initInputBoxes(callerID) {
 
     var inputDiv = document.createElement('div')
+    //TODO: move these to CSS
     inputDiv.style.float = "left";
     inputDiv.style.width = "50%";
 
@@ -305,6 +355,7 @@ function initDelCallerButton() {
     var delButton = document.createElement('button');
     delButton.innerText = 'Delete Caller';
     delButton.type = 'button';
+    //TODO: move this to CSS
     delButton.style.backgroundColor = 'red';
     delButton.style.color = 'white';
 
