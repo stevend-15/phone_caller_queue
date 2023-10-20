@@ -21,6 +21,7 @@ button {
     align-items: center;
     clear: both;
     flex-wrap: wrap;
+    width: 82%;
 }
 
 .dot {
@@ -74,7 +75,7 @@ div.statuses {
 
 .square {
     border: 5px solid #000;
-    width: 15%;
+    width: 12%;
     height: 120px;
     justify-content: left;
     margin: 10px 10px 10px 10px;

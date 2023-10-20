@@ -53,23 +53,21 @@ function appendCaller(target) {
 
 }
 
-//TODO: need to handle edge case where the head and tail are adjacent and 
-//tail needs to be deleted. 
-//Specifically, need to change the link container on the head to just a plus button
+
 function delCaller(ev) {
 
     var delSquare = ev.target.parentElement;
     var delCaller = JSON.parse(localStorage.getItem(delSquare.id));
-    console.log("Deleting caller " + delCaller.id);
-    console.log("delCaller obj: " + JSON.stringify(delCaller));
+    //console.log("Deleting caller " + delCaller.id);
+    //console.log("delCaller obj: " + JSON.stringify(delCaller));
 
     var nextCaller = JSON.parse(localStorage.getItem(delCaller.next));
-    console.log("nextCaller: " + localStorage.getItem(delCaller.next));
-    console.log("typeof(nextCaller): " + typeof(nextCaller));
+    //console.log("nextCaller: " + localStorage.getItem(delCaller.next));
+    //console.log("typeof(nextCaller): " + typeof(nextCaller));
 
     var prevCaller = JSON.parse(localStorage.getItem(delCaller.prev));
-    console.log("prevCaller: " + prevCaller);
-    console.log("typeof(prevCaller): " + typeof(prevCaller));
+    //console.log("prevCaller: " + prevCaller);
+    //console.log("typeof(prevCaller): " + typeof(prevCaller));
 
     if (nextCaller) {
         console.log("nextCaller is some form of true");
@@ -82,6 +80,8 @@ function delCaller(ev) {
     }
     else {
         console.log("nextCaller is some form of false");
+        console.log("trying to remove the tail square...");
+        var newTailArrow = delSquare.previousSibling;
         prevCaller.next = null;
         console.log("prevCaller.next is now " + prevCaller.next);
         localStorage.setItem(prevCaller.id, JSON.stringify(prevCaller));
@@ -94,6 +94,16 @@ function delCaller(ev) {
     var linkContainer = delSquare.nextElementSibling;
     delSquare.remove();
     linkContainer.remove();
+
+    //if we removed tail square, remove old arrow and 
+    //re-append plus button to new tail
+    if (!nextCaller) {
+        var callerContainer = document.getElementById("callerContainer");
+        var plusButton = initPlusButton();
+        newTailArrow.remove();
+        callerContainer.appendChild(plusButton);
+    }
+
 
 }
 
@@ -113,10 +123,10 @@ function initLink() {
     arrow.innerHTML="&#x2192";
     linkContainer.appendChild(arrow)
 
-    var plusButton = initPlusButton("insert");
+    //var plusButton = initPlusButton("insert");
 
     linkContainer.appendChild(arrow);
-    linkContainer.appendChild(plusButton);
+    //linkContainer.appendChild(plusButton);
 
     return linkContainer;
 }
