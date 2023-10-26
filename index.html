@@ -36,9 +36,9 @@
                 <button onclick="startTimer()">Start</button>
             </div>
 
-            <!--TODO: make a confirmation pop up for this button-->
+            <!--TODO: move below script to index.js-->
             <div class="button" id="resetCallersButton">
-                <button type="button" onclick="clearData()" 
+                <button type="button" 
                     style="background-color: red;color: white"> 
                     Click to reset callers 
                 </button>
@@ -47,6 +47,7 @@
                 resetCallersButton.addEventListener("click", () => {
 
                     var confirmed = confirm("Are you sure you want to reset all callers?");
+                    console.log("confirmed? : " + confirmed);
 
                     if (confirmed) {
                         clearData();

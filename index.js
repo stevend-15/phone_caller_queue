@@ -4,6 +4,7 @@
     participants
 */
 
+var NUM_ELAPSED_CALLERS = 0;
 
 class Caller {
 
@@ -22,9 +23,7 @@ class Caller {
 
 function appendCaller(target) {
 
-    //TODO: change this to be TOTAL_NUM_CALLERS constant
-    var numCallers = getNumCallers();
-    var id = "caller" + String(numCallers);
+    var id = "caller" + String(NUM_ELAPSED_CALLERS);
 
     var tailSquare = getTailSquare();
     var prevCallerID = tailSquare.id;
@@ -50,6 +49,8 @@ function appendCaller(target) {
     localStorage.setItem("callerContainer", callerContainer);
 
     updateNumCallers();
+    NUM_ELAPSED_CALLERS +=1;
+    //console.log("NUM_ELAPSED_CALLERS is now " + NUM_ELAPSED_CALLERS);
 
 }
 
@@ -104,6 +105,7 @@ function delCaller(ev) {
         callerContainer.appendChild(plusButton);
     }
 
+    updateNumCallers();
 
 }
 
@@ -132,6 +134,7 @@ function initLink() {
 }
 
 
+//TODO: make status buttons appear/disappear on mousein/out into square
 function initSquare(id) {
 
     var square = document.createElement('div');
@@ -159,7 +162,7 @@ function initStatusButton(innerTxt) {
     return button;
 }
 
-
+//TODO: make these buttons appear/disappear on mousein/out into square
 function initStatusButtons() {
 
     var statusDiv = document.createElement('div')
@@ -176,7 +179,7 @@ function initStatusButtons() {
     nominalButton.addEventListener("click", 
         (event) => {
 
-            updatedDisabledButton(event);
+            updateDisabledButton(event);
 
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "aquamarine";
@@ -190,7 +193,7 @@ function initStatusButtons() {
     missingButton.addEventListener("click", 
         (event) => {
             
-            updatedDisabledButton(event);
+            updateDisabledButton(event);
 
             //update the square color
             var parentSquare = event.target.parentElement.parentElement;
@@ -208,7 +211,7 @@ function initStatusButtons() {
     currentSpeakerButton.addEventListener("click", 
         (event) => {
 
-            updatedDisabledButton(event);
+            updateDisabledButton(event);
 
             var parentSquare = event.target.parentElement.parentElement;
             var curr = JSON.parse(localStorage.getItem("hostSquare"));
@@ -245,7 +248,7 @@ function initStatusButtons() {
     finishedButton.addEventListener("click", 
         (event) => {
 
-            updatedDisabledButton(event);
+            updateDisabledButton(event);
 
             var parentSquare = event.target.parentElement.parentElement;
             parentSquare.style.backgroundColor = "gray";
@@ -268,7 +271,7 @@ function initStatusButtons() {
 }
 
 
-function updatedDisabledButton(ev) {
+function updateDisabledButton(ev) {
 
     //enable/disable status buttons
     var clickedButton = ev.target;
