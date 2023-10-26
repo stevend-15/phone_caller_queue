@@ -145,9 +145,22 @@ function initSquare(id) {
     square.appendChild(inputBoxDiv);
 
     var statusButtons = initStatusButtons();
+    statusButtons.style.opacity = 0;
     square.appendChild(statusButtons);
 
     square.appendChild(initDelCallerButton());
+
+    square.addEventListener("mouseenter", (event) => {
+
+        var statusDiv = event.target.getElementsByClassName("statuses")[0];
+        statusDiv.style.opacity = 1;
+    })
+
+    square.addEventListener("mouseleave", (event) => {
+
+        statusDiv = event.target.getElementsByClassName("statuses")[0];
+        statusDiv.style.opacity = 0;
+    })
 
     return square;
 
@@ -441,7 +454,8 @@ function initPlusButton(context) {
 }
 
 updateNumCallers();
-localStorage.setItem("hostSquare", JSON.stringify(new Caller("hostSquare", null, null, null)));
+localStorage.setItem("hostSquare", 
+    JSON.stringify(new Caller("hostSquare", null, null, null)));
 
 
 //TODO: maybe remove all this and just make a warning if the user tries to refresh page
