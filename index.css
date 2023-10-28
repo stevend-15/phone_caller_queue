@@ -58,7 +58,7 @@ div.statuses {
     flex-direction: column;
     cursor: pointer;
     float: right;
-    /*width: 20%; */
+    width: 50%; 
     /*position: relative;*/
     /*display: inline-block;*/
     /*box-sizing: border-box;*/
@@ -66,12 +66,10 @@ div.statuses {
 }
 
 
-.li {
-    display: block;
-    width: 100%;
-    margin: 2px;
+div.inputs {
+    float: left;
+    width: 50%;
 }
-
 
 .square {
     border: 5px solid #000;
@@ -85,6 +83,8 @@ div.statuses {
     /*border-radius: 50%;*/
 }
 
+
+/* plus button stuff */
 .plus {
     display:inline-block;
     width:50px;

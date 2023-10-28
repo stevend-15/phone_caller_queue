@@ -134,7 +134,6 @@ function initLink() {
 }
 
 
-//TODO: make status buttons appear/disappear on mousein/out into square
 function initSquare(id) {
 
     var square = document.createElement('div');
@@ -148,7 +147,7 @@ function initSquare(id) {
     statusButtons.style.opacity = 0;
     square.appendChild(statusButtons);
 
-    square.appendChild(initDelCallerButton());
+    //square.appendChild(initDelCallerButton());
 
     square.addEventListener("mouseenter", (event) => {
 
@@ -175,7 +174,6 @@ function initStatusButton(innerTxt) {
     return button;
 }
 
-//TODO: make these buttons appear/disappear on mousein/out into square
 function initStatusButtons() {
 
     var statusDiv = document.createElement('div')
@@ -220,7 +218,6 @@ function initStatusButtons() {
     )
 
     //Current speaker behavior is Singleton across application
-    //TODO: fix status button disabled and current speaker issues 
     currentSpeakerButton.addEventListener("click", 
         (event) => {
 
@@ -272,12 +269,15 @@ function initStatusButtons() {
         }
     )
 
+    //add the del caller button
+    var delButton = initDelCallerButton();
 
     //add buttons to div
     statusDiv.appendChild(nominalButton);
     statusDiv.appendChild(missingButton);
     statusDiv.appendChild(currentSpeakerButton);
     statusDiv.appendChild(finishedButton);
+    statusDiv.appendChild(delButton);
 
     return statusDiv;
 
@@ -323,10 +323,7 @@ function initInputBox(id, placeholder) {
 function initInputBoxes(callerID) {
 
     var inputDiv = document.createElement('div')
-    //TODO: move these to CSS
-    inputDiv.style.float = "left";
-    inputDiv.style.width = "50%";
-
+    inputDiv.className = "inputs";
 
     var callerNameField = initInputBox(callerID, "Name");
     var callerLocField = initInputBox(callerID, "Location");
@@ -371,7 +368,7 @@ function initInputBoxes(callerID) {
 function initDelCallerButton() {
 
     var delButton = document.createElement('button');
-    delButton.innerText = 'Delete Caller';
+    delButton.innerText = 'Delete';
     delButton.type = 'button';
     //TODO: move this to CSS
     delButton.style.backgroundColor = 'red';
@@ -379,6 +376,7 @@ function initDelCallerButton() {
 
     delButton.addEventListener("click", (event) => {
         
+        //TODO: make this a multiline str
         var confirmed = confirm("Are you sure you want to delete this caller?");
 
         if (confirmed) {
