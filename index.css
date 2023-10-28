@@ -59,10 +59,6 @@ div.statuses {
     cursor: pointer;
     float: right;
     width: 50%; 
-    /*position: relative;*/
-    /*display: inline-block;*/
-    /*box-sizing: border-box;*/
-    /*bottom: 5px;*/
 }
 
 
@@ -81,6 +77,12 @@ div.inputs {
     
     /*align-items: left;*/
     /*border-radius: 50%;*/
+}
+
+.resetButton {
+    background-color: red;
+    color: white;
+
 }
 
 

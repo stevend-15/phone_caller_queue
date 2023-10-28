@@ -368,11 +368,9 @@ function initInputBoxes(callerID) {
 function initDelCallerButton() {
 
     var delButton = document.createElement('button');
+    delButton.className = "resetButton";
     delButton.innerText = 'Delete';
     delButton.type = 'button';
-    //TODO: move this to CSS
-    delButton.style.backgroundColor = 'red';
-    delButton.style.color = 'white';
 
     delButton.addEventListener("click", (event) => {
         
