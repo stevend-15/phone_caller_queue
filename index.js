@@ -449,9 +449,23 @@ function initPlusButton(context) {
 
 }
 
+
+function resetCallers() {
+
+    var confirmed = confirm("Are you sure you want to reset all callers?");
+    console.log("confirmed? : " + confirmed);
+
+    if (confirmed) {
+        clearData();
+    }
+    
+}
+
 updateNumCallers();
 localStorage.setItem("hostSquare", 
     JSON.stringify(new Caller("hostSquare", null, null, null)));
+
+
 
 
 //TODO: maybe remove all this and just make a warning if the user tries to refresh page
