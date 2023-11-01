@@ -45,7 +45,6 @@ function adjustTimer(context) {
     countdown.innerHTML = numMins + ":00";
 }
 
-//TODO: stop timer when reset is pressed
 function startTimer() {
 
     //disable the timer adjustment buttons

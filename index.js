@@ -332,6 +332,7 @@ function initInputBoxes(callerID) {
         (event) => {
 
             var callerName = event.target.value;
+            event.target.innerText = callerName;
 
             var parentSquare = event.target.parentElement.parentElement;
             console.log("parentSquare.id: " + parentSquare.id);
@@ -347,6 +348,7 @@ function initInputBoxes(callerID) {
     callerLocField.addEventListener("change", 
         (event) => {
             var callerLoc = event.target.value;
+            event.target.innerText = callerLoc;
 
             var parentSquare = event.target.parentElement.parentElement;
             console.log("parentSquare.id: " + parentSquare.id);
@@ -396,10 +398,12 @@ function clearData() {
 
 window.addEventListener("beforeunload", function() {
 
+    console.log("Page refreshed triggered")
     var callerContainer = this.localStorage.getItem("callerContainer");
-    console.log("callerContainer: " + callerContainer);
+    console.log("callerContainer:\n\n" + callerContainer);
     console.log("typeof(callerContainer): " + typeof(callerContainer));
     if (callerContainer != null) {
+        console.log("callerContainer was not null\n")
         var callerContainer = document.getElementById("callerContainer").outerHTML;
         localStorage.setItem("callerContainer", callerContainer);
     }
@@ -462,17 +466,63 @@ function resetCallers() {
 }
 
 updateNumCallers();
-localStorage.setItem("hostSquare", 
-    JSON.stringify(new Caller("hostSquare", null, null, null)));
 
 
 
+function loadCallers() {
 
-//TODO: maybe remove all this and just make a warning if the user tries to refresh page
+    var curr = JSON.parse(localStorage["hostSquare"]);
+
+    while (curr) {
+
+        console.log("curr: " + curr.id)
+        curr = curr.next;
+    }
+}
+
+//TODO: maybe remove all this and warn if user tries to refresh page
+//TODO: loop through localStorage to recreate everything
+//TODO: how can I get the 'you may lose input data warning if you refresh this page'?
 function createCallerContainer() {
 
+    //always init the container and host square
+
+    var docBody = document.getElementsByTagName("body").item(0);
+
+    var callerContainer = document.createElement('div');
+    callerContainer.className = 'callerContainer';
+    callerContainer.id = 'callerContainer';
+
+    var hostSquare = document.createElement('div');
+    hostSquare.className = 'square';
+    hostSquare.id = 'hostSquare';
+    hostSquare.innerText = "Host";
+    hostSquare.style.textAlign = 'center';
+
+    callerContainer.appendChild(hostSquare);
+
+    var plusButton = initPlusButton("append");
+    callerContainer.appendChild(plusButton);
+
+
+    docBody.appendChild(callerContainer);
+
+
+    var hostSquareObj = JSON.parse(localStorage["hostSquare"])
+    console.log("hostSquareObj: " + hostSquareObj);
+    console.log("typeof(hostSquareObj): " + typeof(hostSquareObj));
+    console.log("Is hostSquareObj.next == null? : " + hostSquareObj.next === null);
+    console.log("hostSquareObj.next): " + hostSquareObj.next);
+    console.log("typeof(hostSquareObj.next): " + typeof(hostSquareObj.next));
+
+    if (hostSquareObj.next){
+        console.log("\n\nhostSquareObj.next is some form of true")
+        loadCallers()
+    } 
+
+    //check if there is caller data in local storage
+    /*
     var cachedContainer = localStorage["callerContainer"];
-    var docBody = document.getElementsByTagName('body').item(0);
 
     if (cachedContainer != 'null' && cachedContainer !== undefined)  {
 
@@ -482,26 +532,10 @@ function createCallerContainer() {
         docBody.appendChild(frag);
         updateNumCallers();
 
-    } else {
-
-        var defaultContainer = document.createElement('div');
-        defaultContainer.className = 'callerContainer';
-        defaultContainer.id = 'callerContainer';
-
-        var hostSquare = document.createElement('div');
-        hostSquare.className = 'square';
-        hostSquare.id = 'hostSquare';
-
-        var hostSquareTxt = document.createElement('p');
-        hostSquareTxt.style.textAlign = 'center';
-        hostSquareTxt.innerText = 'Host';
-
-        hostSquare.appendChild(hostSquareTxt);
-        defaultContainer.appendChild(hostSquare);
-
-        var plusButton = initPlusButton("append");
-        defaultContainer.appendChild(plusButton);
-
-        docBody.appendChild(defaultContainer);
-    }
+    } 
+    */
 }
+
+
+localStorage.setItem("hostSquare", 
+    JSON.stringify(new Caller("hostSquare", null, null, null)));
